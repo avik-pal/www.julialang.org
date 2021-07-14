@@ -59,8 +59,12 @@ We welcome additions to this list in the form of [pull requests](https://github.
 ## 2021
 
 @@tight-list
+* **Geostatistical Learning: Challenges and Opportunities**. Júlio Hoffimann, Maciel Zortea, Breno de Carvalho, Bianca Zadrozny. Frontiers in Applied Mathematics and Statistics 2021. [10.3389/fams.2021.689393](https://www.frontiersin.org/articles/10.3389/fams.2021.689393/full). Package: [GeoStats.jl](https://github.com/JuliaEarth/GeoStats.jl)
+* **Asymptotically Optimal Strategies For Combinatorial Semi-Bandits in Polynomial Time**. Thibaut Cuvelier, Richard Combes, Éric Gourdin. Algorithmic Learning Theory (ALT) 2021, Paris (France). arXiv: [2102.07254](https://arxiv.org/abs/2102.07254). Package: [CombinatorialBandits.jl](https://github.com/dourouc05/CombinatorialBandits.jl).
+* **Statistically Efficient, Polynomial Time Algorithms for Combinatorial Semi Bandits**. Thibaut Cuvelier, Richard Combes, Éric Gourdin. ACM SIGMETRICS 2021, Beijing (China). arXiv: [2002.07258](https://arxiv.org/abs/2002.07258). Packages: [CombinatorialBandits.jl](https://github.com/dourouc05/CombinatorialBandits.jl), [Kombinator.jl](https://github.com/dourouc05/Kombinator.jl).
 * **Inverse Dynamics vs. Forward Dynamics in Direct Transcription Formulations for Trajectory Optimization**. Henrique Ferrolho, Vladimir Ivan, Wolfgang Merkt, Ioannis Havoutis, Sethu Vijayakumar. (2021) _IEEE International Conference on Robotics and Automation (ICRA)_. arXiv: [2010.05359](https://arxiv.org/abs/2010.05359). url: <https://ferrolho.github.io/research/publications/ferrolho2021inverse/>. Packages: [TORA.jl](https://github.com/JuliaRobotics/TORA.jl), [RigidBodyDynamics.jl](https://github.com/JuliaRobotics/RigidBodyDynamics.jl), [MeshCat.jl](https://github.com/rdeits/MeshCat.jl).
 * **On Property (T) for Aut(Fₙ) and SLₙ(ℤ)**. Marek Kaluba, Dawid Kielak, and Piotr W. Nowak. _Annals of Mathematics 193_, no. 2 (2021). doi: [10.4007/annals.2021.193.2.3](https://doi.org/10.4007/annals.2021.193.2.3). arXiv: [1812.03456](https://arxiv.org/abs/1812.03456). Packages: [Groups.jl](https://github.com/kalmarek/Groups.jl), [GroupRings.jl](https://github.com/kalmarek/GroupRings.jl), [PropertyT.jl](https://github.com/kalmarek/PropertyT.jl).
+* **A scalable solution to the nearest neighbor search problem through local-search methods on neighbor graphs**. Eric S. Tellez, Guillermo Ruiz, Edgar Chavez, Mario Graff. _Pattern Analysis and Applications 24, 763–777 (2021). doi: [10.1007/s10044-020-00946-w](https://doi.org/10.1007/s10044-020-00946-w). arXiv: [1705.10351](https://arxiv.org/abs/1705.10351). Package: [SimilaritySearch.jl](https://github.com/sadit/SimilaritySearch.jl).
 @@
 
 ## 2020
@@ -77,6 +81,7 @@ We welcome additions to this list in the form of [pull requests](https://github.
 * **Automatic Differentiation for Solid Mechanics**. Andrea Vigliotti, Ferdinando Auricchio. (2020) _Archives of Computational Methods in Engineering_. doi: [10.1007/s11831-019-09396-y](https://doi.org/10.1007/s11831-019-09396-y). url: <https://link.springer.com/article/10.1007%2Fs11831-019-09396-y>. preprint: <https://arxiv.org/abs/2001.07366>
 * **BioStructures.jl: read, write and manipulate macromolecular structures in Julia**. Joe G Greener, Joel Selvaraj, Ben J Ward. (2020) _Bioinformatics_, 36(14):4206-4207. doi: [10.1093/bioinformatics/btaa502](https://doi.org/10.1093/bioinformatics/btaa502). Package: [BioStructures.jl](https://github.com/BioJulia/BioStructures.jl).
 * **Polymake.jl: A New Interface to polymake**. Marek Kaluba, Benjamin Lorenz, Sascha Timme. (2020) _Mathematical Software – ICMS 2020_. doi: [10.1007/978-3-030-52200-1_37](https://doi.org/10.1007/978-3-030-52200-1_37). Package: [Polymake.jl](https://github.com/oscar-system/Polymake.jl)
+* **Predicting permeability via statistical learning on higher-order microstructural information**. M. Röding, Z. Ma, S. Torquato. (2020) _Scientific Reports_, 10: 15239. doi: [10.1038/s41598-020-72085-5](https://doi.org/10.1038/s41598-020-72085-5).
 @@
 
 ## 2019

@@ -1,5 +1,3 @@
-
-
 # Download Julia
 
 If you like Julia, please consider starring us [on GitHub](https://github.com/JuliaLang/julia) and spreading the word!
@@ -10,15 +8,12 @@ If you like Julia, please consider starring us [on GitHub](https://github.com/Ju
 
 We provide several ways for you to run Julia:
 
-@@tight-list
 * In the terminal using the built-in Julia command line using the binaries provided below.
 * Using [Docker](https://docs.docker.com/) images from [Docker Hub](https://hub.docker.com/_/julia) maintained by the [Docker Community](https://github.com/docker-library/julia).
-* [JuliaPro](https://juliacomputing.com/products/juliapro/) by [Julia Computing](https://juliacomputing.com/) includes Julia and the [Juno IDE](https://junolab.org/), along with access to a curated set of packages for plotting, optimization, machine learning, databases and much more (requires registration).
 
 Please see [platform specific instructions](/downloads/platform/) for further installation instructions and if you have trouble installing Julia.
 If the provided download files do not work for you, please [file an issue in the Julia project](https://github.com/JuliaLang/julia/issues).
 Different OSes and architectures have varying [tiers of support](/downloads/#currently_supported_platforms), and are listed at the bottom of this page.
-@@
 
 ---
 
@@ -104,6 +99,7 @@ Checksums for this release are available in both [MD5](https://julialang-s3.juli
 
 Checksums for this release are available in both, [MD5](https://julialang-s3.julialang.org/bin/checksums/julia-{{lts_release}}.md5) and [SHA256](https://julialang-s3.julialang.org/bin/checksums/julia-{{lts_release}}.sha256) formats.
 
+
 @@row @@col-12
 ~~~
 <table class="downloads table table-hover  table-bordered">
@@ -178,17 +174,22 @@ Checksums for this release are available in both, [MD5](https://julialang-s3.jul
       <td colspan="3"> <a href="https://julialang-s3.julialang.org/bin/winnt/x86/{{upcoming_release_short}}/julia-{{upcoming_release}}-win32.exe">32-bit (installer)</a>,  <a href="https://julialang-s3.julialang.org/bin/winnt/x86/{{upcoming_release_short}}/julia-{{upcoming_release}}-win32.zip">32-bit (portable)</a> </td> </td>
     </tr>
     <tr>
-      <th> macOS <a href="/downloads/platform/#macos">[help]</a></th>
+      <th> macOS x86 <a href="/downloads/platform/#macos">[help]</a></th>
       <td colspan="3"> <a href="https://julialang-s3.julialang.org/bin/mac/x64/{{upcoming_release_short}}/julia-{{upcoming_release}}-mac64.dmg">64-bit</a> </td>
+      <td colspan="3"> </td>
+    </tr>
+    <tr>
+      <th> macOS ARM <a href="/downloads/platform/#macos">[help]</a></th>
+      <td colspan="3"> <a href="https://julialang-s3.julialang.org/bin/mac/aarch64/{{upcoming_release_short}}/julia-{{upcoming_release}}-macaarch64.dmg">64-bit</a> </td>
       <td colspan="3"> </td>
     </tr>
     <tr>
       <th> Generic Linux on x86 <a href="/downloads/platform/#linux_and_freebsd">[help]</a></th>
       <td colspan="3">
         <a href="https://julialang-s3.julialang.org/bin/linux/x64/{{upcoming_release_short}}/julia-{{upcoming_release}}-linux-x86_64.tar.gz">64-bit (glibc)</a>
-        (<a href="https://julialang-s3.julialang.org/bin/linux/x64/{{upcoming_release_short}}/julia-{{upcoming_release}}-linux-x86_64.tar.gz.asc">GPG</a>),
+        (<a href="https://julialang-s3.julialang.org/bin/linux/x64/{{upcoming_release_short}}/julia-{{upcoming_release}}-linux-x86_64.tar.gz.asc">GPG</a>)<!--,
         <a href="https://julialang-s3.julialang.org/bin/musl/x64/{{upcoming_release_short}}/julia-{{upcoming_release}}-musl-x86_64.tar.gz">64-bit (musl)</a><sup>[<a href=#musl-fn>1</a>]</sup>
-        (<a href="https://julialang-s3.julialang.org/bin/musl/x64/{{upcoming_release_short}}/julia-{{upcoming_release}}-musl-x86_64.tar.gz.asc">GPG</a>)
+        (<a href="https://julialang-s3.julialang.org/bin/musl/x64/{{upcoming_release_short}}/julia-{{upcoming_release}}-musl-x86_64.tar.gz.asc">GPG</a>)-->
       </td>
       <td colspan="3"> <a href="https://julialang-s3.julialang.org/bin/linux/x86/{{upcoming_release_short}}/julia-{{upcoming_release}}-linux-i686.tar.gz">32-bit</a>
         (<a href="https://julialang-s3.julialang.org/bin/linux/x86/{{upcoming_release_short}}/julia-{{upcoming_release}}-linux-i686.tar.gz.asc">GPG</a>)
@@ -276,10 +277,15 @@ The platforms currently supported by Julia are listed below. They are divided in
       <th> Support Tier </th>
     </tr>
     <tr>
-      <td rowspan="2"> macOS </td>
+      <td rowspan="3"> macOS </td>
       <td> 10.10+ </td>
       <td> x86-64 (64-bit) </td>
       <td> <font color="green">Tier 1</font> </td>
+    </tr>
+    <tr>
+      <td> 11.4+ </td>
+      <td> ARMv8 (64-bit) </td>
+      <td> <font color="crimson">Tier 3</font> </td>
     </tr>
     <tr>
       <td> 10.6+ </td>
