@@ -1,27 +1,52 @@
-<!-- RSS parameters -->
-@def generate_rss = true
-@def website_title = "JuliaLang - The Julia programming language"
-@def website_descr = "Official website for the Julia programming language."
-@def website_url = get(ENV, "JULIA_FRANKLIN_WEBSITE_URL", "https://julialang.org/")
-@def prepath = get(ENV, "JULIA_FRANKLIN_PREPATH", "")
++++
+# RSS parameters
+generate_rss = true
+website_title = "JuliaLang - The Julia programming language"
+website_descr = "Official website for the Julia programming language."
+website_url = get(ENV, "JULIA_FRANKLIN_WEBSITE_URL", "https://julialang.org/")
+prepath = get(ENV, "JULIA_FRANKLIN_PREPATH", "")
 
-<!-- NOTE: don't change what's below -->
-@def div_content = "container main" <!-- instead of franklin-content -->
-@def author = ""
+# NOTE: don't change what's below
+div_content = "container main"  # instead of franklin-content
+author = ""
+ignore = ["visual-tests/"]
 
-<!-- Templating of the Downloads -->
-@def stable_release = "1.6.1"
-@def stable_release_short = "1.6"
-@def stable_release_date = "April 23, 2021"
-@def lts_release = "1.0.5"
-@def lts_release_short = "1.0"
-@def lts_release_date = "Sep 9, 2019"
+# Templating of the Downloads
+# NOTE: When updating for a new release, make sure to also rerun
+# `downloads/oldreleases.jl`
+stable_release = "1.13.4"
+stable_release_short = "1.13"
+stable_release_date = "November 13, 2026"
+lts_release = "1.10.13"
+lts_release_short = "1.10"
+lts_release_date = "November 1, 2026"
+
+# plotly
+hasplotly = false
+
+# map (leaflet)
+hasmap = false
+
+# If the following lines are commented, the "upcoming release" section
+# in `downloads/index.md` will not be shown.
+upcoming_release = "1.14.0-beta1"
+upcoming_release_short = "1.14"
+upcoming_release_date = "November 12, 2026"
++++
 
 <!--
-If the following lines are commented, the "upcoming release" section
-in `downloads/index.md` will not be shown.
-
-@def upcoming_release = "1.6.0-rc3"
-@def upcoming_release_short = "1.6"
-@def upcoming_release_date = "March 16, 2021"
+Add here global latex commands to use throughout your pages.
 -->
+\newcommand{\note}[2]{
+@@admonition-note
+@@admonition-title Note: #1 @@
+@@admonition-body #2 @@
+@@
+}
+
+\newcommand{\warn}[2]{
+@@admonition-warn
+@@admonition-title Warning: #1 @@
+@@admonition-body #2 @@
+@@
+}

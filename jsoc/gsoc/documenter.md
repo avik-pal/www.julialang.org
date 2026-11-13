@@ -1,28 +1,25 @@
-# Documentation tooling
+@def description = "Julia GSoC project ideas for Documenter.jl, the documentation generator for Julia and its ecosystem, combining Julia with web development."
+# Documentation tooling – Summer of Code
 
 ## Documenter.jl
 
 The Julia manual and the documentation for a large chunk of the ecosystem is generated using [Documenter.jl](https://github.com/JuliaDocs/Documenter.jl) -- essentially a static site generator that integrates with Julia and its docsystem. There are tons of opportunities for improvements for anyone interested in working on the interface of Julia, documentation and various front-end technologies (web, LaTeX).
 
-* **ElasticSearch-based search backend for Documenter.** Loading the search page of Julia manual is slow because the index is huge and needs to be downloaded and constructed on the client side on every page load. Instead, we should look at hosting the search server-side. Goal is to continue the work done during a MLH fellowship for implementing an [ElasticSearch](https://www.elastic.co/)-based search backend.
+Here are some features or areas that are looking for contributions:
 
-* **Improve the generated PDF in the PDF/LaTeX backend.** The goals is to improve the look of the generated PDF and make sure backend works reliably (improved testing). See [#949](https://github.com/JuliaDocs/Documenter.jl/issues/949), [#1342](https://github.com/JuliaDocs/Documenter.jl/issues/1342) and [other related issues](https://github.com/JuliaDocs/Documenter.jl/labels/Format%3A%20LaTeX).
+* User-contributed notes and examples to documentation (e.g. backed by GitHub Discussions).
+* One-page-per-function documentation listings (prototype for main Julia manual). See [JuliaDocs/Documenter.jl#2133](https://github.com/JuliaDocs/Documenter.jl/issues/2133).
+* JuliaSyntax-based code highlighter for Julia code that can be re-used for both the HTML and LaTeX/PDF output.
+* Rework Documenter's page layout and navigation. See [JuliaDocs/Documenter.jl#2177](https://github.com/JuliaDocs/Documenter.jl/issues/2177).
+* Improve or rework Documenter's search index.
+* Work on any of the ideas that have been [marked as plugins](https://github.com/JuliaDocs/Documenter.jl/labels/Type%3A%20Plugin), as they offer self-contained features to work on.
 
-**Recommended skills:** Basic knowledge of web-development (JS, CSS, HTML) or LaTeX, depending on the project.
+If any of these sound interesting, please reach out to the mentors to ask for more details and to narrow down the project for a proposal. The possible projects vary in difficulty and size, depending on the project and the ultimate scope.
 
-**Mentors:** [Morten Piibeleht](https://github.com/mortenpi)
+**Recommended skills**: Depends on the project, but the work would generally involved both Julia programming, but also basic web development (HTML, CSS, JS).
 
-## Docsystem API
+**Mentors:** [Morten Piibeleht](https://github.com/mortenpi), [Fredrik Ekre](https://github.com/fredrikekre)
 
-Julia supports docstrings -- inline documentation which gets parsed together with the code and can be accessed dynamically in a Julia session (e.g. via the REPL `?>` help mode; implemented mostly in the [Docs module](https://github.com/JuliaLang/julia/tree/master/base/docs)).
+## Contact
 
-Not all docstrings are created equal however. There are bugs in Julia's docsystem code, which means that some docstrings do not get stored or are stored with the wrong key (parametric methods). In addition, the API to fetch and work with docstrings programmatically is not documented, not considered public and could use some polishing.
-
-@@tight-list
-* Create a package which would provide a clean up the API for working with docstrings, and abstract away the implementation details (and potential differences between Julia versions) of the docsystem in Base.
-* Fix as many docsystem-related bugs in the Julia core as possible [[further reading](http://mortenpi.eu/gsoc2019/latest/notes/docsystem-internals/#Docsystem-bugs-1), [#16730](https://github.com/JuliaLang/julia/issues/16730), [#29437](https://github.com/JuliaLang/julia/issues/29437), [JuliaDocs/Documenter.jl#558](https://github.com/JuliaDocs/Documenter.jl/issues/558)]
-@@
-
-**Recommended skills:** Basic familiarity with Julia is sufficient.
-
-**Mentors:** [Morten Piibeleht](https://github.com/mortenpi)
+Best way to reach out is to message in the `#documentation` channel on the [JuliaLang Slack](/slack/)!

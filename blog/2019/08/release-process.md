@@ -1,8 +1,8 @@
 @def rss_pubdate = Date(2019, 8, 28)
-@def rss = """ Julia’s Release Process | People involved in the day-to-day development of a project tend to become so familiar with its rhythm and process that they internalize it and it feels like everyone must just _know_ how each stage unfolds. Of course, from the outside looking in it's not so obvious. So I thought it might be helpful t... """
+@def rss_description = """ Julia’s Release Process | People involved in the day-to-day development of a project tend to become so familiar with its rhythm and process that they internalize it and it feels like everyone must just _know_ how each stage unfolds. Of course, from the outside looking in it's not so obvious. So I thought it might be helpful t... """
 @def published = "28 August 2019"
 @def title = "Julia’s Release Process"
-@def authors = "Stefan Karpinski (Julia Computing)"  
+@def authors = "Stefan Karpinski (JuliaHub)"
 
 
 People involved in the day-to-day development of a project tend to become so familiar with its rhythm and process that they internalize it and it feels like everyone must just _know_ how each stage unfolds. Of course, from the outside looking in it's not so obvious. So I thought it might be helpful to the broader Julia community—and maybe even for other programming language communities—to actually write down Julia's release process, including the details of:
@@ -13,7 +13,7 @@ People involved in the day-to-day development of a project tend to become so fam
 - who should use which releases based on risk tolerance
 - the phases of a release and sequence of events surrounding it.
 
-This information is collected from a small set of posts on [discourse](https://discourse.julialang.org/) and conversations on [Slack](https://julialang.org/slack/), so the information exists "out there", but this blog post brings it all together in a single place. We may turn this post into an official document if it's well received. Julia follows "semantic versioning" as specified in the [SemVer](https://semver.org/) standard, but SemVer leaves a fair amount of room for interpretation and says very little about process, so this post aims to fill in those details.
+This information is collected from a small set of posts on [discourse](https://discourse.julialang.org/) and conversations on [Slack](/slack/), so the information exists "out there", but this blog post brings it all together in a single place. We may turn this post into an official document if it's well received. Julia follows "semantic versioning" as specified in the [SemVer](https://semver.org/) standard, but SemVer leaves a fair amount of room for interpretation and says very little about process, so this post aims to fill in those details.
 
 \toc
 
@@ -144,4 +144,4 @@ Once a release branch has accumulated enough bug fixes and enough time has passe
 Hopefully you've found this overview of Julia's release process and policies illuminating. The very best thing we can hope for is that some of you reading this will find it interesting and want to get involved and that by demystifying things, we've helped make becoming a Julia developer a little more accessible.
 
 
-[^1]: [PkgEval](https://github.com/JuliaComputing/NewPkgEval.jl) is a tool for running the test suites of all Julia packages, which helps us make sure that we haven't inadvertently broken anything. Each failure is examined when a release is made: we verify that the failure isn't due to a violation of SemVer and try to make pull requests to fix packages, regardless of the cause of the failure.
+[^1]: [PkgEval](https://github.com/JuliaCI/NewPkgEval.jl) is a tool for running the test suites of all Julia packages, which helps us make sure that we haven't inadvertently broken anything. Each failure is examined when a release is made: we verify that the failure isn't due to a violation of SemVer and try to make pull requests to fix packages, regardless of the cause of the failure.

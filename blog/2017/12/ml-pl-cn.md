@@ -1,9 +1,10 @@
 @def rss_pubdate = Date(2017, 12, 20)
-@def rss = """ 机器学习与编程语言 (Simplified Chinese) | > 任何足够复杂的机器学习系统，里面都拼凑了半个不规范，处处错误，且运行缓慢的编程语言。^greenspun ... """
+@def rss_description = """ 机器学习与编程语言 (Simplified Chinese) | > 任何足够复杂的机器学习系统，里面都拼凑了半个不规范，处处错误，且运行缓慢的编程语言。^greenspun ... """
 @def published = "20 December 2017"
 @def title = "机器学习与编程语言 (Simplified Chinese)"
-@def authors = "By Mike Innes (Julia Computing), David Barber (UCL), Tim Besard (UGent), James Bradbury (Salesforce Research), Valentin Churavy (MIT), Simon Danisch (MIT), Alan Edelman (MIT), Stefan Karpinski (Julia Computing), Jon Malmaud (MIT), Jarrett Revels (MIT), Viral Shah (Julia Computing), Pontus Stenetorp (UCL) and Deniz Yuret (Koç University)"  
+@def authors = "By Mike Innes (JuliaHub), David Barber (UCL), Tim Besard (UGent), James Bradbury (Salesforce Research), Valentin Churavy (MIT), Simon Danisch (MIT), Alan Edelman (MIT), Stefan Karpinski (JuliaHub), Jon Malmaud (MIT), Jarrett Revels (MIT), Viral Shah (JuliaHub), Pontus Stenetorp (UCL) and Deniz Yuret (Koç University)"
 @def hascode = true
+@def pagelang = "zh-Hans"
 
 > 任何足够复杂的机器学习系统，里面都拼凑了半个不规范，处处错误，且运行缓慢的编程语言。[^greenspun]
 
@@ -13,7 +14,7 @@
 
 \toc
 
-## [儿童黑话](https://zh.wikipedia.org/zh-hk/兒童黑話)及其它隐匿语言
+## 儿童黑话及其它隐匿语言
 
 TensorFlow（TF）等框架[^tf][已被公认属于编程语言](https://dl.acm.org/citation.cfm?doid=3088525.3088527)，尽管它们在某些方面还有局限。这多少有些意料之外，毕竟大家 TF 编程时用的是 Python。然而琢磨一下就会发现，TF 只是让你用 Python 代码[构造了一个表达式树](https://www.tensorflow.org/programmers_guide/graphs)，这个表达式树是用其内部语言表示的，之后再进行计算。
 
@@ -43,7 +44,7 @@ TensorFlow 及类似的工具以“我仅仅是个库”的姿态出现。然而
 话虽如此，有一个小问题不能忽略。卓有成效的优化依赖于能够简化问题的假设（机器学习模型里不会出现递归，也不需要自定义梯度，对吧？）。正是这些假设使得模型的优化更简单，也更易于部署到小型设备上。可惜研究员们沉醉于破坏这些假设的乐趣中，工程师们面对的模型也越来越复杂。一个模型现在会用到条件分支（不算什么，小菜一碟），循环（不怎么容易，但应该可以搞定），甚至[树的递归](https://arxiv.org/pdf/1503.00075.pdf)（好吧，基本上做不到）。 在机器学习的很多分支中，包括[神经网络](https://blog.keras.io/the-future-of-deep-learning.html)和[概率编程](https://eng.uber.com/pyro/)，模型越来越像程序：有些模型可以推导*其它*程序（例如[程序生成器](https://arxiv.org/pdf/1705.03633.pdf)和[解释器](https://arxiv.org/abs/1605.06640)）；有些则包括像蒙特卡罗树搜索这样的不可导组件。在保证最高性能的同时提供充分的灵活性，这对运行时的构建提出了极高的挑战，然而两者的兼顾却是最强大的模型和突破性的成果所越来越倚重的。
 
 ~~~
-<img src="/assets/images/sentiment-treebank.png"/>
+<img src="/assets/images/sentiment-treebank.png" alt="Stanford Sentiment Treebank visualization"/>
 <div class="desc">
   用机器学习处理复杂的树结构数据，如<a href="https://nlp.stanford.edu/sentiment/treebank.html">斯坦福情绪树库</a>，用到了可微的，递归的算法。
 </div>
@@ -70,7 +71,7 @@ MXNet 的 [Gluon](https://mxnet.incubator.apache.org/api/python/gluon.html) 正�
 
 和编程语言圈子一样，机器学习工程师们也应密切关注传统的自动微分（AD）领域。机器学习语言可以从[真正内置支持微分的语言设计](https://arxiv.org/pdf/1611.03416.pdf)等先驱性的工作中得到启发。这类语言中，混合运用符号化与运行时技巧（便于权衡之前提到的因素），混合使用正向和反向自动微分（可以改进速度和内存占用），以及[对 GPU 核心微分](https://mikeinnes.github.io/2017/08/24/cudanative.html)都不费吹灰之力，而且不以损失性能为代价。
 
-机器学习研究日趋依赖更强大的类型系统、用户自定义类型和更多的扩展方法。硬编码就能支持 NVIDIA GPU 上的跨数组的美好时光已一去不返；像[稀疏机器学习](https://people.eecs.berkeley.edu/~elghaoui/Pubs/cidu2011_final.pdf)这样的前沿技术，[TPU](https://cloud.google.com/tpu/)、[Nervana](https://www.intelnervana.com/) 和 [FPGAs](https://www.forbes.com/sites/moorinsights/2017/08/28/microsoft-fpga-wins-versus-google-tpus-for-ai/#118733643904) 这样的全新硬件，[ARM 芯片](https://www.wired.co.uk/article/google-raspberry-pi-ai) 和 [iPhone 的 CoreML](https://developer.apple.com/documentation/coreml) 这样形形色色的部署目标，都要求灵活性能更上一层楼。每次新发展都[对核心 C++ 代码进行大规模重构](https://github.com/tensorflow/tensorflow/pull/5267/files)不是一个可持续的策略。
+机器学习研究日趋依赖更强大的类型系统、用户自定义类型和更多的扩展方法。硬编码就能支持 NVIDIA GPU 上的跨数组的美好时光已一去不返；像[稀疏机器学习](https://people.eecs.berkeley.edu/~elghaoui/Pubs/cidu2011_final.pdf)这样的前沿技术，[TPU](https://cloud.google.com/tpu/)、[Nervana](https://www.intelnervana.com/) 和 [FPGAs](https://www.forbes.com/sites/moorinsights/2017/08/28/microsoft-fpga-wins-versus-google-tpus-for-ai/#118733643904) 这样的全新硬件，[ARM 芯片](https://www.wired.com/story/google-raspberry-pi-ai/) 和 [iPhone 的 CoreML](https://developer.apple.com/documentation/coreml) 这样形形色色的部署目标，都要求灵活性能更上一层楼。每次新发展都[对核心 C++ 代码进行大规模重构](https://github.com/tensorflow/tensorflow/pull/5267/files)不是一个可持续的策略。
 
 让我们想象这样一个世界：增加一个新的硬件支持或数据表示可以用高层代码轻松解决，而不必对原有系统做任何更改。当前数值计算语言[已经能轻松处理这些任务](https://arxiv.org/pdf/1604.03410.pdf)，我们期望机器学习系统能从中汲取灵感。
 
@@ -84,7 +85,7 @@ MXNet 的 [Gluon](https://mxnet.incubator.apache.org/api/python/gluon.html) 正�
 
 <div style="text-align:center">
 <a href="https://xkcd.com/1838/">
-<img height="350px" src="https://imgs.xkcd.com/comics/machine_learning_2x.png"/>
+<img style="height: 350px" src="https://imgs.xkcd.com/comics/machine_learning_2x.png" alt="XKCD comic: Machine Learning"/>
 </a>
 </div>
 <div class="desc">

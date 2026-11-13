@@ -1,6 +1,31 @@
 using Dates
 
 """
+    page_url(website_url, rpath)
+
+Public URL of the page built from source `rpath`, e.g. `blog/2024/05/post.md`
+gives `\$website_url/blog/2024/05/post/` and `downloads/index.md` gives
+`\$website_url/downloads/`.
+"""
+function page_url(website_url, rpath)
+    path = replace(rpath, r"(^|/)index\.(md|html)$" => s"\1")
+    path = replace(path, r"\.(md|html)$" => "/")
+    return "$website_url/$path"
+end
+
+"""
+    parse_pubdate(s)
+
+Parse a `published` page variable like "12 August 2021", returning `nothing`
+(with a warning) if it is not in that format.
+"""
+function parse_pubdate(s)
+    date = tryparse(Date, s, dateformat"d U Y")
+    isnothing(date) && @warn "Could not parse published date \"$s\" (expected e.g. \"12 August 2021\")"
+    return date
+end
+
+"""
     {{meta}}
 
 Plug in specific meta information for a blog page. The `meta` local page
@@ -14,29 +39,96 @@ A full example can be found in `blog/2020/05/rr.md`.
 function hfun_meta()
     title = locvar(:title)
     isnothing(title) && (title = "The Julia Language")
-    descr = locvar(:rss)
-    isnothing(descr) && (descr = "Official website for the Julia programming language")
+    page_rpath = locvar(:fd_rpath)
+    # og:description: blog posts set `rss_description` (which also feeds the RSS
+    # feed), other pages set `description` so they stay out of the feed. The home
+    # page is HTML, which can't set page variables, so it's handled here.
+    isblank(d) = isnothing(d) || isempty(strip(d))
+    descr = locvar(:rss_description)
+    isblank(descr) && (descr = locvar(:description))
+    isblank(descr) && page_rpath == "index.html" &&
+        (descr = "Julia is a fast, dynamic, open-source programming language for scientific computing, data science, machine learning and more. Download Julia, learn the language, and explore its packages and community.")
+    isblank(descr) && (descr = "Julia is a fast, dynamic, open-source programming language for scientific computing, data science, machine learning and more.")
+    descr = strip(descr)
     p = "property"
+    # Build page URL for og:url
+    website_url = strip(globvar(:website_url), '/')
+    url = isnothing(page_rpath) ? website_url : page_url(website_url, page_rpath)
     # default og properties, can be overwritten by the user
     ogdflt = (
         title = (p, "og:title", title),
         descr = (p, "og:description", descr),
         image = (p, "og:image", "/assets/images/julia-open-graph.png"),
+        url   = (p, "og:url", url),
         )
     # check what the user has provided (if anything) use defaults otherwise
     meta = locvar(:meta)
     if !isnothing(meta)
-        for c in keys(ogdflt)
-            any(m -> m[2] == "og:$c", meta) || push!(meta, getindex(ogdflt, c))
+        for d in values(ogdflt)
+            any(m -> m[2] == d[2], meta) || push!(meta, d)
         end
     else
         meta = values(ogdflt)
     end
+    base = locvar(:base)
     io = IOBuffer()
     for m in meta
-        write(io, "<meta $(m[1])=\"$(m[2])\" content=\"$(m[3])\">\n")
+        content = string(m[3])
+        # Resolve {{base}} (some posts use a `base` page variable in meta values)
+        isnothing(base) || (content = replace(content, "{{base}}" => base))
+        # og:image must be an absolute URL
+        m[2] == "og:image" && startswith(content, "/") && (content = "$website_url$content")
+        # Link previews show plain text, so drop Markdown/HTML from titles and
+        # descriptions. Many older posts also start their description with
+        # "<title> | ", which repeats the title shown just above it.
+        if m[2] in ("og:title", "og:description")
+            content = preview_text(content)
+            if m[2] == "og:description"
+                content = drop_title_prefix(content, preview_text(title))
+            end
+        end
+        # HTML-escape double quotes and newlines in content to produce valid attributes
+        escaped = replace(content, "&" => "&amp;", "\"" => "&quot;", "\n" => " ")
+        write(io, "<meta $(m[1])=\"$(m[2])\" content=\"$(escaped)\">\n")
     end
     return String(take!(io))
+end
+
+const HTML_ENTITIES = Dict(
+    "amp" => "&", "lt" => "<", "gt" => ">", "quot" => "\"", "apos" => "'",
+    "nbsp" => " ", "pi" => "π", "mdash" => "—", "ndash" => "–", "hellip" => "…",
+)
+
+"""
+    preview_text(s)
+
+Plain text for a link preview: Markdown links/images become their text,
+emphasis and code markers and HTML tags are dropped, HTML entities decoded
+(e.g. `&#928;`, `&pi;`), and whitespace collapsed.
+"""
+function preview_text(s)
+    s = replace(string(s), r"!?\[([^\]]*)\]\([^)]*\)" => s"\1")
+    s = replace(s, r"<[^>]*>" => "")
+    s = replace(s, r"(\*\*|__)(.+?)\1" => s"\2")
+    s = replace(s, r"(?<![\w*])\*(?!\s)([^*\n]+?)\*(?![\w*])" => s"\1")
+    s = replace(s, r"`([^`]*)`" => s"\1")
+    s = replace(s, r"&#(\d+);" => m -> string(Char(parse(Int, m[3:end-1]))))
+    s = replace(s, r"&#[xX]([0-9a-fA-F]+);" => m -> string(Char(parse(Int, m[4:end-1]; base=16))))
+    s = replace(s, r"&([a-z]+);" => m -> get(HTML_ENTITIES, m[2:end-1], m))
+    return strip(replace(s, r"\s+" => " "))
+end
+
+"""
+    drop_title_prefix(descr, title)
+
+Remove a leading "`title` | " from a description (ignoring case), as many
+older blog posts' `rss_description`s start with it.
+"""
+function drop_title_prefix(descr, title)
+    parts = split(descr, " | "; limit=2)
+    length(parts) == 2 || return descr
+    head, rest = strip(parts[1]), strip(parts[2])
+    return lowercase(head) == lowercase(strip(title)) && !isempty(rest) ? rest : descr
 end
 
 
@@ -48,9 +140,10 @@ Plug in the list of blog posts contained in the `/blog/` folder.
 function hfun_blogposts()
     curyear = year(Dates.today())
     io = IOBuffer()
-    for year in curyear:-1:2012
-        ys = "$year"
-        year < curyear && write(io, "\n**$year**\n")
+    alt = false  # track alternating background
+    for yr in curyear:-1:2012
+        ys = "$yr"
+        year_posts = IOBuffer()
         for month in 12:-1:1
             ms = "0"^(month < 10) * "$month"
             base = joinpath("blog", ys, ms)
@@ -62,25 +155,45 @@ function hfun_blogposts()
                 ps  = splitext(post)[1]
                 url = "/blog/$ys/$ms/$ps/"
                 surl = strip(url, '/')
-                title = pagevar(surl, :title)
+                # Franklin.pagevar appears to be an internal function that has a guard against
+                # recursive overflow so we need to reset the counter to 0, otherwise we cannot read
+                # pagevars for all pages.
+                Franklin.PAGEVAR_DEPTH[] = 0
+                title = pagevar(surl, :title; default="Untitled")
+                Franklin.PAGEVAR_DEPTH[] = 0
                 pubdate = pagevar(surl, :published)
-                if isnothing(pubdate)
+                date = isnothing(pubdate) ? nothing : parse_pubdate(pubdate)
+                if isnothing(date)
                     date    = "$ys-$ms-01"
                     days[i] = 1
                 else
-                    date    = Date(pubdate, dateformat"d U Y")
                     days[i] = day(date)
                 end
-                lines[i] = "\n[$title]($url) $date \n"
+                lines[i] = "<a href=\"$url\">$title</a> $date"
             end
             # sort by day
-            foreach(line -> write(io, line), lines[sortperm(days, rev=true)])
+            foreach(line -> write(year_posts, "<p>$line</p>\n"), lines[sortperm(days, rev=true)])
         end
+        year_html = String(take!(year_posts))
+        isempty(year_html) && continue
+        bg = alt ? "container-fluid alt-color packages" : "container pt-sm-2"
+        alt = !alt
+        write(io, """
+        <div class="$bg"><br>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 col-md-3 language-features"><hr/></div>
+              <div class="col-lg-4 col-md-6 language-features section-heading">
+                <h2 class="lead secondary-heading">$yr</h2>
+              </div>
+              <div class="col-lg-4 col-md-3 language-features"><hr/></div>
+            </div>
+            <div class="grid">$year_html</div>
+          </div>
+        <br></div>
+        """)
     end
-    # markdown conversion adds `<p>` beginning and end but
-    # we want to  avoid this to avoid an empty separator
-    r = Franklin.fd2html(String(take!(io)), internal=true)
-    return r
+    return String(take!(io))
 end
 
 """
@@ -105,9 +218,10 @@ function hfun_recentblogposts()
                 ps       = splitext(post)[1]
                 surl     = "blog/$year/$ms/$ps"
                 surls[i] = surl
+                Franklin.PAGEVAR_DEPTH[] = 0
                 pubdate  = pagevar(surl, :published)
-                days[i]  = isnothing(pubdate) ?
-                                1 : day(Date(pubdate, dateformat"d U Y"))
+                date     = isnothing(pubdate) ? nothing : parse_pubdate(pubdate)
+                days[i]  = isnothing(date) ? 1 : day(date)
             end
             # go over month post in antichronological orders
             sp = sortperm(days, rev=true)
@@ -122,16 +236,22 @@ function hfun_recentblogposts()
     end
     #
     io = IOBuffer()
-    for (surl, date) in recent
+    for (surl, date) in recent[1:nfound]
         url   = "/$surl/"
+        Franklin.PAGEVAR_DEPTH[] = 0
         title = pagevar(surl, :title)
+		title === nothing && (title = "Untitled")
         sdate = "$(day(date)) $(monthname(date)) $(year(date))"
-        blurb = pagevar(surl, :rss)
+        Franklin.PAGEVAR_DEPTH[] = 0
+        blurb = pagevar(surl, :rss_description)
+        blurb = blurb === nothing ? "" : "<p>$blurb</p>"
         write(io, """
-            <div class="col-lg-4 col-md-12 blog">
-              <h3><a href="$url" class="title" data-proofer-ignore>$title</a>
-              </h3><span class="article-date">$date</span>
-              <p>$blurb</p>
+            <div class="col-lg-4 col-md-12">
+              <a class="blog" href="$url" data-proofer-ignore>
+                <h3 class="title">$title</h3>
+                <span class="article-date">$sdate</span>
+                $blurb
+              </a>
             </div>
             """)
     end
@@ -147,8 +267,10 @@ function hfun_redirect(url)
     s = """
     <!-- REDIRECT -->
     <!doctype html>
-    <html>
+    <html lang="en">
       <head>
+        <meta charset="utf-8">
+        <title>Redirecting…</title>
         <meta http-equiv="refresh" content="0; url=$(url[1])">
       </head>
     </html>
@@ -174,7 +296,7 @@ end
 function hfun_author_twitter()
     url = get_author_twitter()
     isempty(url) && return ""
-    return "<a href=\"$url\"><img src=\"/assets/infra/twitter_16.png\"/></a>"
+    return "<a href=\"$url\"><img src=\"/assets/infra/twitter.svg\" alt=\"Twitter\" width=\"22\" height=\"22\" style=\"margin-left:2px\"></a>"
 end
 
 """
@@ -190,15 +312,15 @@ function hfun_about_the_author()
     if !isempty(twitter)
         social *= """
                   <li class="author-social-link-twitter">
-                    <a href=\"$twitter\"><i class="fa fa-twitter"></i></a>
+                    <a href=\"$twitter\" aria-label="Twitter"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
                   </li>
                   """
     end
 
 	html = """
 		<div class="author-info">
-          <img src="$img" class="author-img" alt="$(locvar(:author))" width="150px">
-		  <h3>$(locvar(:author))</h3>
+          <img src="$img" class="author-img" alt="$(locvar(:author))" style="width: 150px">
+		  <h2>$(locvar(:author))</h2>
 		  <div class="author-description">
 		    $(locvar(:author_blurb))
 		  </div>
@@ -212,16 +334,239 @@ function hfun_about_the_author()
     return html
 end
 
+"""
+    {{article_schema}}
+
+Generate a JSON-LD `BlogPosting` structured data block for blog posts.
+See https://developers.google.com/search/docs/data-types/article
+"""
+function hfun_article_schema()
+    title = locvar(:title)
+    isnothing(title) && return ""
+    descr = locvar(:rss_description)
+    isnothing(descr) && (descr = locvar(:rss))
+    isnothing(descr) && (descr = "")
+    descr = strip(descr)
+
+    # Parse the published date into ISO 8601
+    pubdate_str = locvar(:published)
+    isnothing(pubdate_str) && return ""
+    pubdate = parse_pubdate(pubdate_str)
+    isnothing(pubdate) && return ""
+    date_iso = Dates.format(pubdate, "yyyy-mm-dd") * "T00:00:00+00:00"
+
+    # Get image URL from meta or use default
+    image_url = "/assets/images/julia-open-graph.png"
+    meta = locvar(:meta)
+    if !isnothing(meta)
+        for m in meta
+            if m[2] == "og:image"
+                image_url = m[3]
+                break
+            end
+        end
+    end
+    # Resolve {{base}} if present (some posts use a `base` page variable in meta values)
+    base = locvar(:base)
+    if !isnothing(base)
+        image_url = replace(image_url, "{{base}}" => base)
+    end
+
+    # Strip HTML tags from a string (some older posts have <a> links in author)
+    striptags(s) = replace(s, r"<[^>]*>" => "")
+
+    # Parse author entries, extracting name and optional URL from <a> tags.
+    # Returns a vector of (name, url_or_nothing) tuples.
+    function parse_authors(raw)
+        entries = Tuple{String,Union{String,Nothing}}[]
+        # Split on comma, " and " or ", and " (but not inside tags)
+        for part in split(raw, r"\s*,\s*(?:and\s+)?|\s+and\s+")
+            part = strip(part)
+            isempty(part) && continue
+            # Try to extract href and link text from <a> tag
+            m = match(r"<a\s+href=\"([^\"]+)\"[^>]*>([^<]+)</a>", part)
+            if m !== nothing
+                push!(entries, (strip(m[2]), strip(m[1])))
+            else
+                name = strip(striptags(part))
+                isempty(name) || push!(entries, (name, nothing))
+            end
+        end
+        entries
+    end
+
+    # Build author list
+    author = locvar(:author)
+    authors = locvar(:authors)
+    raw_authors = if !isnothing(authors)
+        authors
+    elseif !isnothing(author)
+        author
+    else
+        ""
+    end
+    author_entries = parse_authors(raw_authors)
+
+    # Escape strings for JSON (also strip any HTML tags and newlines)
+    function esc(s)
+        s = striptags(s)
+        s = replace(s, "\\" => "\\\\")
+        s = replace(s, "\"" => "\\\"")
+        s = replace(s, r"\s+" => " ")
+        strip(s)
+    end
+
+    # Build the author JSON entries
+    function author_obj((name, url))
+        if url !== nothing
+            """{"@type": "Person", "name": "$(esc(name))", "url": "$(esc(url))"}"""
+        else
+            """{"@type": "Person", "name": "$(esc(name))"}"""
+        end
+    end
+    author_json = if length(author_entries) == 1
+        author_obj(author_entries[1])
+    elseif length(author_entries) > 1
+        "[$(join(author_obj.(author_entries), ", "))]"
+    else
+        """{"@type": "Organization", "name": "The Julia Language"}"""
+    end
+
+    website_url = strip(globvar(:website_url), '/')
+
+    # Get the page URL, e.g. /blog/2024/05/post.md -> /blog/2024/05/post/
+    url = page_url(website_url, Franklin.locvar(:fd_rpath))
+
+    # Ensure image URL is absolute
+    if startswith(image_url, "/")
+        image_url = "$website_url$image_url"
+    end
+
+    return """
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "$(esc(title))",
+      "description": "$(esc(descr))",
+      "image": "$(esc(image_url))",
+      "datePublished": "$date_iso",
+      "author": $author_json,
+      "publisher": {
+        "@type": "Organization",
+        "name": "The Julia Language",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "$website_url/assets/images/julia-open-graph.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "$(esc(url))"
+      }
+    }
+    </script>
+    """
+end
+
 function hfun_all_gsoc_projects()
 	base_dir = joinpath("jsoc", "gsoc")
+	# Only include projects that are linked from the curated projects page
+	curated = String(read(joinpath("jsoc", "projects.md")))
+	curated_slugs = Set(m.match for m in eachmatch(r"(?<=/jsoc/gsoc/)[^/)]+", curated))
 	all_projects = readdir(base_dir)
 	md = IOBuffer()
 	for project in all_projects
-		project in ("general.md", "tooling.md", "graphics.md") && continue
 		endswith(project, ".md") || continue
-		write(md, read(joinpath(base_dir, project)))
+		replace(project, ".md" => "") in curated_slugs || continue
+        for line in eachline(joinpath(base_dir, project))
+            # remove any table of contents
+            if line == "\\toc"
+                continue
+            end
+
+            # remove ' - Summer of Code' suffix from the primary header
+            line = replace(line, r"^# (.*) - Summer of Code" => s"# \1")
+
+            # increase the header level by 1
+            if startswith(line, "#")
+                line = "#" * line
+            end
+
+            println(md, line)
+        end
 		write(md, "\n\n")
 	end
 	allmd = String(take!(md))
 	return fd2html(allmd, internal=true)
+end
+
+"""
+    {{software_schema}}
+
+schema.org `SoftwareApplication` JSON-LD describing Julia, used on the home
+page and `/downloads/`. Version and release date come from `config.md`.
+"""
+function hfun_software_schema()
+    esc(s) = strip(replace(string(s), "\\" => "\\\\", "\"" => "\\\"", r"\s+" => " "))
+    website_url = strip(globvar(:website_url), '/')
+    version = esc(globvar(:stable_release))
+    date = tryparse(Date, strip(globvar(:stable_release_date)), dateformat"U d, Y")
+    isnothing(date) && @warn "Could not parse stable_release_date \"$(globvar(:stable_release_date))\" (expected e.g. \"October 14, 2026\")"
+    date_line = isnothing(date) ? "" : "\n  \"datePublished\": \"$(Dates.format(date, "yyyy-mm-dd"))\","
+    return """
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "@id": "$website_url/#software",
+      "name": "Julia",
+      "alternateName": "The Julia Programming Language",
+      "description": "Julia is a high-level, high-performance, dynamic programming language for technical computing.",
+      "url": "$website_url/",
+      "softwareVersion": "$version",$date_line
+      "operatingSystem": "Linux, macOS, Windows, FreeBSD",
+      "applicationCategory": "DeveloperApplication",
+      "license": "https://github.com/JuliaLang/julia/blob/master/LICENSE.md",
+      "downloadUrl": "$website_url/downloads/",
+      "releaseNotes": "https://github.com/JuliaLang/julia/blob/v$version/NEWS.md",
+      "image": "$website_url/assets/images/julia-open-graph.png",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "$website_url/#organization",
+        "name": "The Julia Programming Language",
+        "url": "$website_url/"
+      },
+      "sameAs": "https://github.com/JuliaLang/julia"
+    }
+    </script>
+    """
+end
+
+"""
+Base URL of the production site. Canonical links always point here, even in
+Netlify preview builds (where `website_url` is the preview URL), so previews
+and duplicate URLs such as `/foo/index.html` don't compete with production.
+"""
+const CANONICAL_BASE_URL = "https://julialang.org"
+
+"""
+    {{canonical}}
+
+`<link rel="canonical">` pointing at the production URL of the current page.
+Nothing is emitted for the 404 page or when the source path is unknown.
+Redirect pages (`{{redirect ...}}`) are raw HTML without the layout, so they
+never reach this function.
+"""
+function hfun_canonical()
+    rpath = locvar(:fd_rpath)
+    (isnothing(rpath) || isempty(rpath)) && return ""
+    rpath = replace(rpath, '\\' => '/')
+    startswith(rpath, "404.") && return ""
+    return "<link rel=\"canonical\" href=\"$(page_url(CANONICAL_BASE_URL, rpath))\">"
 end

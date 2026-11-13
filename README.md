@@ -27,7 +27,7 @@ Build previews for each Pull Request are available at: https://julialang.netlify
 
 ## Making modifications and seeing the changes locally
 
-Clone the repository and `cd` to it. Start julia with `julia --project` and do
+Clone the repository and `cd` to it. Start Julia version 1.13 with `julia --project` and do
 
 ```julia
 julia> using Pkg; Pkg.instantiate()
@@ -36,9 +36,8 @@ julia> using Franklin
 
 julia> serve()
 → Initial full pass...
-→ evaluating code [...] (learning/code-examples.md)
 → Starting the server...
-✓ LiveServer listening on https://localhost:8000/ ...
+✓ LiveServer listening on http://localhost:8000/ ...
   (use CTRL+C to shut down)
 ```
 
@@ -78,7 +77,7 @@ In order to add `<meta aaa="bbb" content="ccc">` tags on your blog post, add
 ## Looking for broken links
 
 Every so often, one should do an in-depth check that there are no broken links.
-While Franklin provides a quick way to do this, it's a good idea to this in depth from time to time.
+While Franklin provides a quick way to do this, it's a good idea to do this in depth from time to time.
 The [broken-link-checker](https://github.com/stevenvachon/broken-link-checker) package is a pretty neat way to do this.
 After installing it with `npm` just do
 
@@ -87,3 +86,27 @@ blc https://julialang.org -ro
 ```
 
 (it takes a while, and may require you to do it in several steps).
+
+## Add languages for syntax highlighting
+
+Franklin uses [highlight.js](https://highlightjs.org/) for syntax highlighting. To add a
+new language to the library used by this webpage, recompile the library and add a the new
+language to the list. From the root of the highlight.js repo:
+
+```
+$ node tools/build.js bash c diff javascript json julia julia-repl plaintext python ruby shell ini yaml
+```
+
+Copy the library from `build/highlight.min.js` to `_libs/highlight/highlight.min.js` in this repository.
+
+## Build Previews on Netlify
+
+Currently, the build previews are run through [Logan Kilpatrick's](https://github.com/logankilpatrick) Netlify account. If the account goes offline and the previews are no longer available, all you need to do to restore them is sign up for Netlify, import a git repository (this repo), select the "gh-preview" branch, and then make the custom sub-domain "julialang.netlify.com". You should then be able to build the previews accordingly.
+
+## FAQ
+
+### tight lists
+
+This is mostly a legacy item. If lists look wrong on the page, please open an issue. You should not have to use `@@tight-list ... @@` anymore.
+
+If you want nested lists, make sure the indentation for the nested list is made with _spaces_ and not with tabs.

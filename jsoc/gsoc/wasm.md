@@ -1,3 +1,4 @@
+@def description = "Julia GSoC projects for the web platform: WebAssembly code generation, threading, JavaScript and DOM integration, native dependencies and deployment."
 
 # Web Platform Projects – Summer of Code
 
@@ -13,7 +14,7 @@ Because Julia relies on an asynchronous task runtime and WebAssembly currently l
 
 ## Wasm threading
 
-WebAssembly is in the process of standardizing [threads](https://github.com/WebAssembly/threads). Simultaneously, work is ongoing to introduce a new threading runtime in julia (see [#22631](https://github.com/JuliaLang/julia/pull/22631) and replated PRs). This project would investigate enabling threading support for Julia on the WebAssembly platform, implementing runtime parallel primitives on the web assembly platform and ensuring that high level threading constructs are correctly mapped to the underlying platform. Please note that both the WebAssembly and julia threading infrastructure is still in active development and may continue to change over the duration of the project. An informed understanding of the state of these projects is a definite prerequisite for this project.
+WebAssembly is in the process of standardizing [threads](https://github.com/WebAssembly/threads). Simultaneously, work is ongoing to introduce a new threading runtime in Julia (see [#22631](https://github.com/JuliaLang/julia/pull/22631) and replated PRs). This project would investigate enabling threading support for Julia on the WebAssembly platform, implementing runtime parallel primitives on the web assembly platform and ensuring that high level threading constructs are correctly mapped to the underlying platform. Please note that both the WebAssembly and Julia threading infrastructure is still in active development and may continue to change over the duration of the project. An informed understanding of the state of these projects is a definite prerequisite for this project.
 
 **Recommended Skills**: Experience with C and multi-threaded programming.
 
@@ -25,7 +26,7 @@ WebAssembly is in the process of adding [first class references to native object
 
 ## DOM Integration
 
-While julia now runs on the web platform, it is not yet a language that's suitable for first-class development of web applications. One of the biggest missing features is integration with and abstraction over more complicated javascript objects and APIs, in particular the DOM. Inspiration may be drawn from similar projects in [Rust](https://github.com/koute/stdweb) or other languages.
+While Julia now runs on the web platform, it is not yet a language that's suitable for first-class development of web applications. One of the biggest missing features is integration with and abstraction over more complicated javascript objects and APIs, in particular the DOM. Inspiration may be drawn from similar projects in [Rust](https://github.com/koute/stdweb) or other languages.
 
 **Recommended Skills**: Experience with writing libraries in Julia, experience with JavaScript Web APIs.
 
@@ -35,12 +36,6 @@ Several Julia libraries (e.g. WebIO.jl, Escher.jl) provide input and output capa
 
 **Recommended Skills**: Experience with writing libraries in Julia.
 
-## Iodide notebook integration
-
-Experimental support exists for running Julia/wasm inside [Iodide](https://github.com/iodide-project/iodide) notebooks. There are a number of possible improvements to this integration, such as improving the quality of output and allowing interactive exploration of Julia objects from the iodide frontend. In addition, iodide notebooks should have support for specifying Julia manifest files in order to allow reproducibility in the face of changing package versions.
-
-**Recommended Skills**: Experience with JavaScript.
-
 ## Native dependencies for the web
 
 The Julia project uses [BinaryBuilder](https://github.com/JuliaPackaging/BinaryBuilder.jl) to provide binaries of native dependencies of julia packages. Experimental support exists to extend this support to the wasm platform, but few packages have been ported. This project would consist of attempting to port a significant fraction of the binary dependencies of the julia ecosystem to the web platform by improving the toolchain support in BinaryBuilder or (if necessary), porting upstream packages to fix assumptions not applicable on the wasm platform.
@@ -49,13 +44,13 @@ The Julia project uses [BinaryBuilder](https://github.com/JuliaPackaging/BinaryB
 
 ## Distributed computing with untrusted parties
 
-The Distributed computing abstractions in julia provide convenient abstraction for implementing programs that span many communicating julia processes on different machines. However, the existing abstractions generally assume that all communicating processes are part of the same trust domain (e.g. they allow messages to execute arbitrary code on the remote). With some of the nodes potentially running in the web browser (or multiple browser nodes being part of the same distributed computing cluster via WebRPC), this assumption no longer holds true and new interfaces need to be designed to support multiple trust domains without overly restricting usability.
+The Distributed computing abstractions in Julia provide convenient abstraction for implementing programs that span many communicating Julia processes on different machines. However, the existing abstractions generally assume that all communicating processes are part of the same trust domain (e.g. they allow messages to execute arbitrary code on the remote). With some of the nodes potentially running in the web browser (or multiple browser nodes being part of the same distributed computing cluster via WebRPC), this assumption no longer holds true and new interfaces need to be designed to support multiple trust domains without overly restricting usability.
 
 **Recommended Skills**: Experience with distributed computing and writing libraries in Julia.
 
 ## Deployment
 
-Currently supported use cases for julia on the web platform are primarily geared towards providing interactive environments to support exploration of the full language. Of course, this leads to significantly larger binaries than would be required for using Julia as part of a production deployment. By disabling dynamic language features (e.g. eval) one could generate small binaries suitable for deployment. Some progress towards this exists in packages like [PackageCompiler.jl](https://github.com/JuliaLang/PackageCompiler.jl), though significant work remains to be done.
+Currently supported use cases for Julia on the web platform are primarily geared towards providing interactive environments to support exploration of the full language. Of course, this leads to significantly larger binaries than would be required for using Julia as part of a production deployment. By disabling dynamic language features (e.g. eval) one could generate small binaries suitable for deployment. Some progress towards this exists in packages like [PackageCompiler.jl](https://github.com/JuliaLang/PackageCompiler.jl), though significant work remains to be done.
 
 **Recommended Skills**: Interest in or experience with Julia internals.
 

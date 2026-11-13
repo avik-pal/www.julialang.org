@@ -1,16 +1,16 @@
 @def rss_pubdate = Date(2016, 1, 7)
-@def rss = """ Julia IDE work in Atom | > A PL designer used to be able to design some syntax and semantics for their language, implement a compiler, and then call it a day. –  Sean McDirmid... """
+@def rss_description = """ Julia IDE work in Atom | > A PL designer used to be able to design some syntax and semantics for their language, implement a compiler, and then call it a day. –  Sean McDirmid... """
 @def published = "7 January 2016"
 @def title = "Julia IDE work in Atom"
-@def authors = "Mike Innes"  
+@def authors = "Mike Innes"
 
 ~~~
-<div align="center"><img src="https://github.com/JunoLab/atom-ink/raw/readme/demos/full.gif" /></div>
+<div style="text-align: center;"><img src="https://github.com/JunoLab/atom-ink/raw/readme/demos/full.gif" alt="Juno IDE for Julia demo showing interactive features" /></div>
 ~~~
 
 > A PL designer used to be able to design some syntax and semantics for their language, implement a compiler, and then call it a day. –  Sean McDirmid
 
-In the few years since its [initial release](/blog/2012/02/why-we-created-julia/), the Julia language has made wonderful progress. Over [four hundred contributors](https://github.com/JuliaLang/julia/graphs/contributors) – and counting – have donated their time developing exciting and modern language features like [channels](https://github.com/JuliaLang/julia/pull/12042) for concurrency, a [native documentation system](https://docs.julialang.org/en/latest/manual/documentation/), [staged functions](https://docs.julialang.org/en/latest/manual/metaprogramming/#generated-functions), [compiled packages](https://docs.julialang.org/en/v1/manual/modules/#), [threading](https://github.com/JuliaLang/julia/pull/13410), and tons more. In the lead up to 1.0 we have a faster and more stable runtime, a more comprehensive standard library, and a more enthusiastic community than ever before.
+In the few years since its [initial release](/blog/2012/02/why-we-created-julia/), the Julia language has made wonderful progress. Over [four hundred contributors](https://github.com/JuliaLang/julia/graphs/contributors) – and counting – have donated their time developing exciting and modern language features like [channels](https://github.com/JuliaLang/julia/pull/12042) for concurrency, a [native documentation system](https://docs.julialang.org/en/v1/manual/documentation/), [staged functions](https://docs.julialang.org/en/v1/manual/metaprogramming/#generated-functions), [compiled packages](https://docs.julialang.org/en/v1/manual/modules/#), [threading](https://github.com/JuliaLang/julia/pull/13410), and tons more. In the lead up to 1.0 we have a faster and more stable runtime, a more comprehensive standard library, and a more enthusiastic community than ever before.
 
 However, a programming language isn’t just a compiler or spec in a vacuum. More and more, the ecosystem around a language – the packages, tooling, and community that support you – are a huge determining factor in where a language can be used, and who it can be used by. Making Julia accessible to everybody means facing these issues head-on. In particular, we’ll be putting a lot of effort into building a comprehensive IDE, Juno, which supports users with features like smart autocompletion, plotting and data handling, interactive live coding and debugging, and more.
 

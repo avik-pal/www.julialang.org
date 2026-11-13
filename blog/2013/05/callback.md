@@ -1,8 +1,8 @@
 @def rss_pubdate = Date(2013, 5, 10)
-@def rss = """ Passing Julia Callback Functions to C | One of the great strengths of Julia is that it is so easy to call C... """
+@def rss_description = """ Passing Julia Callback Functions to C | One of the great strengths of Julia is that it is so easy to call C... """
 @def published = "10 May 2013"
 @def title = "Passing Julia Callback Functions to C"
-@def authors = """<a href="https://math.mit.edu/~stevenj">Steven G. Johnson</a>"""  
+@def authors = """<a href="https://math.mit.edu/~stevenj">Steven G. Johnson</a>"""
 @def hascode = true
 
 
@@ -10,7 +10,7 @@ One of the great strengths of Julia is that it is so easy to [call C
 code](https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/#) natively, with no special "glue" routines or overhead to marshal
 arguments and convert return values.  For example, if you want to call
 [GNU GSL](https://www.gnu.org/software/gsl/) to compute a special function
-like a [Debye integral](http://linux.math.tifr.res.in/manuals/html/gsl-ref-html/gsl-ref_7.html), it is as easy as:
+like a [Debye integral](https://www.gnu.org/software/gsl/doc/html/specfunc.html#c.gsl_sf_debye_1), it is as easy as:
 
 ```
 debye_1(x) = ccall((:gsl_sf_debye_1,:libgsl), Cdouble, (Cdouble,), x)
@@ -284,7 +284,7 @@ We can now do `qsort!([1.3, -2.7, 4.4, 3.1])` and it will
 return the array sorted in ascending order, or `qsort!([1.3, -2.7,
 4.4, 3.1], >)` to sort in descending order.
 
-#### Warning: `qsort_r` is not portable
+### Warning: `qsort_r` is not portable
 
 The example above has one major problem that has nothing to do with
 Julia: the `qsort_r` function is not portable.  The above example

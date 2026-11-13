@@ -1,8 +1,8 @@
 @def rss_pubdate = Date(2015, 10, 22)
-@def rss = """ JSoC 2015 project: Interactive Visualizations in Julia with GLVisualize.jl | GLVisualize is an interactive visualization library that supports 2D and 3D rendering as well as building of basic GUIs. It's written entirely in Julia and OpenGL.... """
+@def rss_description = """ JSoC 2015 project: Interactive Visualizations in Julia with GLVisualize.jl | GLVisualize is an interactive visualization library that supports 2D and 3D rendering as well as building of basic GUIs. It's written entirely in Julia and OpenGL.... """
 @def published = "22 October 2015"
 @def title = "JSoC 2015 project: Interactive Visualizations in Julia with GLVisualize.jl"
-@def authors = """<a href="https://github.com/SimonDanisch">Simon Danisch</a>"""  
+@def authors = """<a href="https://github.com/SimonDanisch">Simon Danisch</a>"""
 
 GLVisualize is an interactive visualization library that supports 2D and 3D rendering as well as building of basic GUIs. It's written entirely in Julia and OpenGL.
 I'm really glad that I could continue working on this project with the support of Julia Summer of Code.
@@ -13,7 +13,7 @@ All recorded gifs in this blog post suffer from lossy compression. You can click
 One of the most interesting parts of **GLVisualize** is, that it's combining GUIs and visualizations, instead of relying on a 3rd party library like **QT** for GUIs.
 This has many advantages and disadvantages.
 The main advantage is, that interactive visualization share a lot of infrastructure with GUI libraries.
-By combining these two, new features are possible, e.g. text editing of labels in 3D space, or making elements of a visualization work like a button. These features should end up being pretty snappy, since **GLVisualize** was created with [high performance](https://randomfantasies.com/2015/05/glvisualize-benchmark/) in mind.
+By combining these two, new features are possible, e.g. text editing of labels in 3D space, or making elements of a visualization work like a button. These features should end up being pretty snappy, since **GLVisualize** was created with high performance in mind.
 
 Obviously, the biggest downside is, that it is really hard to reach the maturity and feature completeness from e.g. **QT**.
 

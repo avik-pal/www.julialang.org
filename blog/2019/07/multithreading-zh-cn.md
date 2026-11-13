@@ -1,9 +1,10 @@
 @def rss_pubdate = Date(2019, 7, 30)
-@def rss = """ Julia将支持可组合的多线程并行机制 | 摩尔定律带来的免费性能提升（free lunch） free lunch 几近结束，... """
+@def rss_description = """ Julia将支持可组合的多线程并行机制 | 摩尔定律带来的免费性能提升（free lunch） free lunch 几近结束，... """
 @def published = "30 July 2019"
 @def title = "Julia将支持可组合的多线程并行机制"
-@def author = "Jeff Bezanson (Julia Computing), Jameson Nash (Julia Computing), Kiran Pamnany (Intel)"
+@def author = "Jeff Bezanson (JuliaHub), Jameson Nash (JuliaHub), Kiran Pamnany (Intel)"
 @def hascode = true
+@def pagelang = "zh-Hans"
 
 摩尔定律带来的[免费性能提升（free lunch）][free lunch]几近结束，
 软件性能越来越依赖于利用多个处理器核心。
@@ -297,8 +298,8 @@ function psort!(v, lo::Int=1, hi::Int=length(v), temps=[similar(v, 0) for i = 1:
 
 ```julia
     temp = temps[Threads.threadid()]
-    length(temp) < m-lo+1 && resize!(temp, m-lo+1)
-    copyto!(temp, 1, v, lo, m-lo+1)
+    length(temp) < mid-lo+1 && resize!(temp, mid-lo+1)
+    copyto!(temp, 1, v, lo, mid-lo+1)
 ```
 
 经过这些细微的修改后，让我们测试一下程序在大规模机器上的性能:
@@ -444,5 +445,5 @@ Windows 具有与任务密切相关的纤程，并且 Unix 系列系统也有多
 [relationalAI]: https://relational.ai/
 [GitHub]: https://github.com/JuliaLang/julia/issues
 [Discourse]: https://discourse.julialang.org/
-[downloads page]: /downloads/
+[install page]: /install/
 [master branch]: https://github.com/JuliaLang/julia

@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{isdef pagelang}}{{fill pagelang}}{{else}}en{{end}}">
 <head>
+	<script>(function(){var t;try{t=localStorage.getItem('julia-theme')}catch(e){}var d=t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches);if(d)document.documentElement.setAttribute('data-theme','dark');var l=document.createElement('link');l.rel='preload';l.as='image';l.setAttribute('fetchpriority','high');l.href='/assets/infra/'+(d?'logo-dark':'logo')+'.svg';document.head.appendChild(l);})()</script>
 	<!-- parts for all pages -->
 	{{insert meta.html}}
 
@@ -14,32 +15,27 @@
 
   {{isdef title}} <title>{{fill title}}</title>   {{end}}
 
-  {{ispage /blog/* /jsoc/gsoc/*}}
-  <style>
-	  .container ul li p {margin-bottom: 0;}
-  </style>
+  {{ispage /blog/* /jsoc/gsoc/* /contribute/* /downloads/* /community/* /about/*}}
+  <link rel="stylesheet" href="/css/container-lists.css">
   {{end}}
 
-  <!-- Specific style for blog pages (except the /blob/index) -->
   {{ispage /blog/*}}{{isnotpage /blog/index}}
-  <style>
-    .main { font-family: Georgia; }
-    .main pre {
-  	  margin-left: auto;
-  	  margin-right: auto;
-    }
-    .main { width: 100%; font-size: 100%; }
-    .main code { font-size: 90%; }
-    .main pre code { font-size: 90%; }
-    @media (min-width: 940px) {
-      .main { width: 800px; }
-      .container.blog-title { width: 800px;}
-    }
-  </style>
+  <link rel="stylesheet" href="/css/blog-post.css">
   {{end}}{{end}}
 
   <!-- OGP Metadata -->
 	{{meta}}
+	{{canonical}}
+
+  <!-- Article structured data for blog posts -->
+  {{ispage /blog/*}}{{isnotpage /blog/index.html}}
+  {{article_schema}}
+  {{end}}{{end}}
+
+  <!-- SoftwareApplication structured data (the home page adds it in index.html) -->
+  {{ispage /downloads/index.html}}
+  {{software_schema}}
+  {{end}}
 
 </head>
 
@@ -49,26 +45,42 @@
 
 <br><br>
 
-{{ispage /blog/*}}
+{{ispage /blog/*}}{{isnotpage /blog/index.html}}
 <div class="container blog-title">
-  {{isdef title}}<h1>{{fill title}}
-    <a type="application/rss+xml" href="https://julialang.org/feed.xml">
-      <i class="fa fa-rss-square rss-icon"></i>
-    </a>
-  </h1>{{end}}
-  <h3>
-  {{isdef published}} <span style="font-weight: lighter;"> {{fill published}} </span>
-	|
-	{{end}}
-	{{isdef author}} <span style="font-weight: bold;">{{fill author}}{{author_twitter}}</span> {{end}}
-  <!-- assumption that only one of the two is defined -->
-  {{isdef authors}} <span style="font-weight: bold;">{{fill authors}} </span> {{end}}
-  </h3>
+  <div class="blog-title-wrapper">
+    <div class="blog-title-left">
+      <div class="blog-title-heading">
+        {{isdef title}}
+          <h1>{{fill title}}</h1>
+        {{end}}
+      </div>
+      <div class="blog-title-meta">
+        <p>
+          {{isdef published}}
+            <span class="blog-meta-date">{{fill published}}</span> |
+          {{end}}
+          {{isdef author}}
+            <span class="blog-meta-author">{{fill author}}{{author_twitter}}</span>
+          {{end}}
+          {{isdef authors}}
+            <span class="blog-meta-author">{{fill authors}}</span>
+          {{end}}
+        </p>
+      </div>
+    </div>
+
+    <div class="blog-title-right">
+      <a href="https://julialang.org/feed.xml"
+         class="rss-link" aria-label="RSS feed">
+        <svg class="icon rss-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415c1.814 0 3.293 1.479 3.293 3.295 0 1.813-1.485 3.29-3.301 3.29C1.47 24 0 22.526 0 20.71s1.475-3.294 3.291-3.295zM15.909 24h-4.665c0-6.169-5.075-11.245-11.244-11.245V8.09c8.727 0 15.909 7.184 15.909 15.91z"/></svg>
+      </a>
+    </div>
+  </div>
 </div>
-{{end}}
+{{end}}{{end}}
 
 {{isnotpage /index.html /blog/index.html}}
-<a href="https://github.com/JuliaLang/www.julialang.org/blob/master/{{fd_rpath}}" title="Edit this page on GitHub" class="edit-float">
+<a href="https://github.com/JuliaLang/www.julialang.org/blob/master/{{fd_rpath}}" title="Edit this page on GitHub" class="edit-float" aria-label="Edit this page on GitHub">
 </a>
 {{end}}
 

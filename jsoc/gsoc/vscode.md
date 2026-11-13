@@ -1,11 +1,12 @@
-# VS Code projects
+@def description = "Julia GSoC projects for the Julia VS Code extension: work on open issues and significant features, and build a package installation UI."
+# VS Code projects - Summer of Code
 
 ## VS Code extension
 
 We are generally looking for folks that want to help with the [Julia VS Code extension](https://www.julia-vscode.org/).
 We have a long list of open issues, and some of them amount to significant projects.
 
-**Required Skills**: TypeScript, julia, web development.
+**Required Skills**: TypeScript, Julia, web development.
 
 **Expected Results**: Depends on the specific projects we would agree on.
 
@@ -24,4 +25,4 @@ This could also be extended by having metadata about the package, such as a read
 **Mentors**: [Sebastian Pfitzner](https://github.com/pfitzseb)
 
 
-_Also take a look at [Pluto - VS Code integration](https://julialang.org/jsoc/gsoc/pluto/)!_
+_Also take a look at [Pluto - VS Code integration](/jsoc/gsoc/pluto/)!_

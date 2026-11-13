@@ -2,9 +2,9 @@
 @def authors = "Jarrett Revels"
 @def published = "20 January 2021"
 @def rss_pubdate = Date(2021, 1, 20)
-@def rss = """A Look Back At The 2020 Industry Julia Users Contributhon"""
+@def rss_description = """A Look Back At The 2020 Industry Julia Users Contributhon"""
 
-A few months ago, I wrote [a blog post](https://julialang.org/blog/2020/09/juliacon-2020-open-source-bof-follow-up/) reflecting on an interesting JuliaCon 2020 discussion between a group of industry-focused Julia users that focused on the interplay between closed-source proprietary software development and Julia's open source software (OSS) ecosystem.
+A few months ago, I wrote [a blog post](/blog/2020/09/juliacon-2020-open-source-bof-follow-up/) reflecting on an interesting JuliaCon 2020 discussion between a group of industry-focused Julia users that focused on the interplay between closed-source proprietary software development and Julia's open source software (OSS) ecosystem.
 The blog post summarized a few key issues that our discussion group felt served as real hurdles to meaningful OSS contribution from within private organizations.
 The post concluded by announcing our attempt to jump these hurdles: the Julia Industry Users Contributhon, a hackathon where participating industry organizations could come together to contribute back to the Julia ecosystem.
 
@@ -16,7 +16,7 @@ This event's goals were to...
 > - ...provide promotional and technical benefits to the Julia community as whole.
 > - ...and have a huge amount of fun!
 
-Now, in 2021, I'm happy to report on all of the great contributions made as part of the event last month by the wonderful folks at [Beacon Biosignals](https://beacon.bio/), [Invenia](https://www.invenia.ca/), [TriScale innov](https://www.triscale-innov.com/), [RelationalAI](https://www.relational.ai/), and [PumasAI](https://pumas.ai/).
+Now, in 2021, I'm happy to report on all of the great contributions made as part of the event last month by the wonderful folks at [Beacon Biosignals](https://beacon.bio/), [Invenia](https://www.invenia.ca/), [TriScale innov](https://www.triscale-innov.com/), [RelationalAI](https://relational.ai/), and [PumasAI](https://pumas.ai/).
 All shapes and sizes of contribution were welcome at the event: we released whole packages, made PRs, caught bugs, started new projects, and planned out our OSS roadmaps/backlogs for future work.
 
 Here is a sampling of the standouts:
@@ -36,7 +36,7 @@ Here is a sampling of the standouts:
 - [PDMatsExtras.jl](https://github.com/invenia/PDMatsExtras.jl), which extends [PDMats.jl](https://github.com/JuliaStats/PDMats.jl) with a couple different positive (semi-)definite matrix types that [nicely interopate with Distributions.jl](https://github.com/JuliaStats/Distributions.jl/issues/1219) (Invenia)
 - [RegistryCLI.jl](https://github.com/triscale-innov/RegistryCLI.jl), a tool for easily managing private package registries directly from the command line (TriScale innov)
 - [XUnit.jl](https://github.com/RelationalAI-oss/XUnit.jl), a unit test framework with nice parallelization capabilities (RelationalAI)
-- Compiler support for compilation profiling during inference/LLVM optimization, [enabling cool new SnoopCompile.jl features](https://timholy.github.io/SnoopCompile.jl/stable/snoopi_deep/) (RelationalAI)
+- Compiler support for compilation profiling during inference/LLVM optimization, [enabling cool new SnoopCompile.jl features](https://juliadebug.github.io/SnoopCompile.jl/stable/tutorials/snoop_inference/) (RelationalAI)
 - Various quality-of-life improvements to [PProf.jl](https://github.com/JuliaPerf/PProf.jl), including interoperability with [FlameGraphs.jl](https://github.com/timholy/FlameGraphs.jl) and [SnoopCompile.jl](https://github.com/timholy/SnoopCompile.jl). (RelationalAI)
 
 ...and so many more issues/PRs/etc. that I couldn't fit here - especially the important work that went into [public OSS backlog creation](https://docs.google.com/document/d/16Rwkr5u8WdPh-AHVJHs2D2e-0SrUHQS_ZTB0fiepsmU/edit).

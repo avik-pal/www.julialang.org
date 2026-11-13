@@ -6,37 +6,59 @@ on:
   pull_request:
     branches:
       - main
+concurrency:
+  group: deploy-${{ github.event_name }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
+          # Full history, but only commits and trees (no old file contents),
+          # so the next step can date each file by its last commit.
+          fetch-depth: 0
+          filter: blob:none
+
+      # Franklin takes the sitemap's <lastmod> from each source file's mtime,
+      # which a fresh checkout sets to the checkout time. Use the date of the
+      # file's last commit instead (for blog posts, their published/updated date).
+      - name: Set file mtimes from git history
+        run: python3 .github/scripts/set_mtimes_from_git.py
+
       - name: Install SSH Client
-        if: github.event_name != 'pull_request' || github.repository == github.event.pull_request.head.repo.full_name # if this build is NOT a PR build, OR if this build is a PR build and the PR is NOT from a fork
-        uses: webfactory/ssh-agent@v0.4.1
+        if: github.event_name != 'pull_request'
+        uses: webfactory/ssh-agent@v0.10.0
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
       - name: Fix URLs for PR preview deployment (pull request previews)
         if: github.event_name == 'pull_request'
         run: |
           echo "JULIA_FRANKLIN_WEBSITE_URL=https://julialang.netlify.app/previews/PR${{ github.event.number }}/" >> $GITHUB_ENV
           echo "JULIA_FRANKLIN_PREPATH=previews/PR${{ github.event.number }}" >> $GITHUB_ENV
+
       - run: echo $JULIA_FRANKLIN_WEBSITE_URL
+
       - run: echo $JULIA_FRANKLIN_PREPATH
+
       # Python is necessary for pre-rendering steps as well as to install
       # matplotlib which is necessary if you intend to use PyPlot. If you do
       # not, then you can remove the `run: pip install matplotlib` line.
       - name: Install python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v7
         with:
-          python-version: '3.8'
+          python-version: '3.15'
+
       - name: Install Julia
-        uses: julia-actions/setup-julia@v1
+        uses: julia-actions/setup-julia@v3
         with:
-          version: 1.5
+          version: '1.13'
+
+      - uses: julia-actions/cache@v3
+
       # This ensures that NodeJS and Franklin are loaded then it installs
       # highlight.js which is needed for the prerendering step.
       # Then the environment is activated and instantiated to install all
@@ -44,23 +66,71 @@ jobs:
       # NOTE: the last line should be `optimize()`, you may want to give it
       # specific arguments, see the documentation or ?optimize in the REPL.
       - name: Build site
-        run: julia --project -e '
+        run: |
+          julia --color=yes --project -e '
               using Pkg; Pkg.instantiate();
               using NodeJS; run(`$(npm_cmd()) install highlight.js`);
-              using Franklin; optimize(prerender=false);
-              cp(joinpath("__site", "feed.xml"), joinpath("__site", "index.xml"))'
-      - name: Deploy (preview)
-        if: github.event_name == 'pull_request' && github.repository == github.event.pull_request.head.repo.full_name # if this build is a PR build and the PR is NOT from a fork
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+              using Franklin;
+              Franklin.HIGHLIGHTJS[] = abspath(joinpath("_libs", "highlight", "highlight.min.js"));
+              Franklin.optimize(prerender=true, minify=false, suppress_errors=false);
+              cp(joinpath("__site", "feed.xml"), joinpath("__site", "index.xml"))' > build.log
+          cat build.log
+
+      - name: Validate output
+        run: |
+          if grep -1 "Franklin Warning" build.log; then
+            echo "Franklin reported a warning; exiting"
+            exit 1
+          else
+            echo "Franklin did not report a warning"
+          fi
+
+      - name: Upload site artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v7
         with:
-          BRANCH: gh-preview
-          FOLDER: __site
-          SSH: true
-          TARGET_FOLDER: "previews/PR${{ github.event.number }}"
+          name: site-build
+          path: __site/
+          retention-days: 1
+
+      - name: Save PR metadata
+        if: github.event_name == 'pull_request'
+        run: |
+          mkdir -p /tmp/deploy-meta
+          echo "${{ github.event.pull_request.number }}" > /tmp/deploy-meta/pr_number
+
+      - name: Upload PR metadata
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v7
+        with:
+          name: deploy-meta
+          path: /tmp/deploy-meta/
+
+      - name: Fetch deployed site for cache diff
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git fetch origin gh-pages:gh-pages || true
+          git worktree add __old gh-pages || mkdir -p __old
+
       - name: Deploy (main)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
-          SSH: true
-          BRANCH: gh-pages
-          FOLDER: __site
+          ssh-key: true
+          branch: gh-pages
+          folder: __site
+
+      - name: Purge changed URLs from Fastly
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          diff -rq __old __site 2>/dev/null \
+            | grep -E "^Files|^Only in __site" \
+            | sed -E 's|^Files __old/(.+) and .+$|\1|; s|^Only in __site/?(.*): (.+)$|\1/\2|' \
+            | sed 's|^/||' \
+            | while read -r file; do
+                url="https://julialang.org/${file}"
+                # Map index.html to directory URL
+                url="${url%index.html}"
+                echo "Purging: $url"
+                curl -s -o /dev/null -w "%{http_code} " -X PURGE "$url" || true
+              done

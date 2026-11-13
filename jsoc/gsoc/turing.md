@@ -1,69 +1,89 @@
+@def description = "Julia GSoC 2026 projects for Turing.jl probabilistic programming: a new Gibbs sampler, Mooncake.jl rules and threads, and Pigeons.jl integration."
+# Turing Projects - Google Summer of Code 2026
 
-# Turing Projects – Summer of Code
+[Turing.jl](https://turinglang.org/) is a universal probabilistic programming language embedded in Julia.
+Turing allows the user to write statistical models in standard Julia syntax, and provides a wide range of sampling-based inference methods for solving problems across probabilistic machine learning, Bayesian statistics, and data science.
+Since Turing is implemented in pure Julia code, its compiler and inference methods are amenable to hacking: new model families and inference methods can be easily added.
 
-[Turing](https://turing.ml/) is a universal probabilistic programming language embedded in Julia. Turing allows the user to write models in standard Julia syntax, and provide a wide range of sampling-based inference methods for solving problems across probabilistic machine learning, Bayesian statistics and data science etc. Since Turing is implemented in pure Julia code, its compiler and inference methods are amenable to hacking: new model families and inference methods can be easily added. Below is a list of ideas for potential projects, though you are welcome to propose your own to the Turing team.
+For GSoC 2026 we offer projects from core AD work to scalable inference and user-facing tools.
 
-If you are interested in exploring any of these projects, please reach out to the listed project mentors. You can find their contact information at [turing.ml/team](https://turing.ml/stable/team).
+If a project interests you, contact the mentors listed below or open a discussion on the relevant GitHub repo.
+Please drop a short introduction message in the [`#turing`](https://julialang.slack.com/archives/CCYDC34A0) channel on the [Julia Slack](/slack/) and feel free to ping [Shravan Goswami](https://github.com/shravanngoswamii) there, he is a past GSoC contributor and currently active in [TuringLang](https://github.com/TuringLang/). Mentors will be happy to discuss project details, scope, and expectations, and you can find mentor contacts at [Turing team page](https://turinglang.org/team/).
 
-## MCMCChains improvements
+Also cross-posted on [Turing Blog](https://turinglang.org/news/).
 
-**Mentors**: Cameron Pfiffer, Hong Ge
+## Mentor Contacts on Julia Slack
 
-**Project difficulty**: Easy
+| Mentor | Slack Contact |
+|--------|---------------|
+| Hong Ge | [Slack](https://julialang.slack.com/team/UCRDHV7PB) |
+| Xianda Sun | [Slack](https://julialang.slack.com/team/U03AV5JMJ8N) |
 
-**Description**: MCMCChains is a key component of the Turing.jl ecosystem. It is the package that determines how to analyze and store MCMC samples provided by packages like Turing. It's also used outside of Turing.
+## New AbstractMCMC-based Gibbs Sampler for Turing.jl and JuliaBUGS.jl
 
-For this project, a student might improve the performance of the various statistical functions provided by MCMCChains, changing the back end to use a data storage format that maintains the shape of parameter samples, or improve the general plotting functionality of the package.
-
-There's lots of fun little things to do for MCMCChains. Check out this [meta-issue](https://github.com/TuringLang/MCMCChains.jl/issues/246) for more details and dicussions.
-
-## Particle filtering methods
-
-**Mentors**: Hong Ge, Cameron Pfiffer
-
-**Project difficulty**: Medium
-
-**Description**: Turing's support for particle sampling methods is slowing being improved with the addition of [AdvancedPS.jl](https://github.com/TuringLang/AdvancedPS.jl). If you're interested in implementing or improving particle sampling methods, this is a great project for you!
-
-
-## Nested Sampling
-
-**Mentors**: Miles Lucas, Cameron Pfiffer, Hong Ge
-
-**Project difficulty**: Hard
-
-**Description**: [NestedSamplers.jl](https://github.com/TuringLang/NestedSamplers.jl) is an excellent package which implements nested sampling methods. As of yet, it is not connected to Turing.jl. For this project, a student would connect the NestedSamplers.jl library to Turing.jl.
-
-## GPU acceleration
-
-**Mentors**: Mohamed Tarek, Hong Ge, Kai Xu, Tor Fjelde
+**Mentors**: [Hong Ge](https://github.com/yebai) and [Xianda Sun](https://github.com/sunxd3)
 
 **Project difficulty**: Medium
 
-**Description**: Turing's native GPU support is limited in that the Metropolis-Hastings and HMC samplers do not implement GPU sampling methods. This can and should be done -- GPU methods are awesome! If you are interested with working on parallelism and GPUs, this project is for you.
+**Project length**: 350 hrs
 
-Students will work with the code at [AdvancedMH](https://github.com/TuringLang/AdvancedMH.jl) or [AdvancedHMC](https://github.com/TuringLang/AdvancedHMC.jl), depending on their interests.
+Gibbs sampling is one of the most widely used inference strategies in Bayesian computation, but Turing.jl's current Gibbs implementation is tightly coupled to its internals and difficult to extend.
 
-## Documentation and tutorial improvements
+This project is about designing a clean, composable Gibbs sampler built on top of the [AbstractMCMC.jl](https://github.com/TuringLang/AbstractMCMC.jl) interface so that it works perfectly across both Turing.jl and [JuliaBUGS.jl](https://github.com/TuringLang/JuliaBUGS.jl).
+Work will include:
 
-**Mentors**: Cameron Pfiffer, Martin Trapp
+- Agreeing on a minimal AbstractMCMC-compatible interface for conditional samplers.
+- Implementing the new Gibbs combinator and verifying correctness on standard models.
+- Migrating existing Turing.jl Gibbs usage to the new interface.
+- Ensuring JuliaBUGS.jl can plug in its own conditional samplers without modification.
 
-**Project difficulty**: Easy
+## Stateful Hand-Written Rules and Thread Support in Mooncake.jl
 
-**Description**: Turing's documentation and tutorials need a bit of an overhaul. Turing has changed significantly since the last time the documentation was written, and it's beginning to show. Students would use their knowledge of probabilistic programming languages and Turing to shore-up or rewrite documentation and tutorials.
+**Mentors**: [Hong Ge](https://github.com/yebai) and [Xianda Sun](https://github.com/sunxd3)
 
-## Iterative Methods for Inference in Gaussian Processes
+**Project difficulty**: Medium to Hard
 
-**Mentors**: Will Tebbutt, S. T. John, Theo Galy-Fajou
+**Project length**: 350 hrs
 
-**Project difficulty**: Medium
+[Mooncake.jl](https://github.com/chalk-lab/Mooncake.jl) is a source-to-source reverse-mode AD package for Julia.
+Two open issues currently limit its performance and applicability in real-world workloads.
 
-**Description**: There has recently been quite a bit of work on inference methods for GPs that use iterative methods rather than the Cholesky factorisation. They look quite promising, but no one has implemented any of these within the Julia GP ecosystem yet, but they should fit nicely within the AbstractGPs framework. If you're interested in improving the GP ecosystem in Julia, this project might be for you!
+The first is that every hand-written `rrule!!` must allocate scratch memory on every call ([issue #403](https://github.com/chalk-lab/Mooncake.jl/issues/403)).
+Derived rules already avoid this by carrying persistent state between calls, but hand-written rules have no such mechanism.
+The fix is a `StatefulRRule` struct that holds a `Stack` of saved state, constructed via a `build_primitive_rrule` function.
+Rule authors implement `stateful_rrule!!`, which receives the current state (or `nothing` on the first call) and returns updated state alongside the usual outputs -- stack push/pop is handled automatically.
+The work is to (1) add a test that fails when a primal is allocation-free but its `rrule!!` is not, (2) audit all existing hand-written rules with that test, and (3) convert the offenders.
 
-## Implement advanced variational Gaussian process models
+The second is that Mooncake currently errors on any code using `Threads.@threads` ([issue #570](https://github.com/chalk-lab/Mooncake.jl/issues/570)).
+Even a race-condition-free primal can produce race conditions on the reverse pass -- two threads may concurrently increment the same tangent element, so increments must be atomic.
+Additionally, rule caches (the stacks inside `OpaqueClosure`s) must be Task-specific; sharing them across Tasks causes pushes and pops to interleave incorrectly.
+The work involves writing rules for the `ccall`s that enter and exit threaded regions, ensuring atomic tangent updates, and making rule caches Task-local without relying on `threadid()`.
 
-**Mentors**: ST John, Will Tebbutt, Theo Galy-Fajou
+## Pigeons.jl Integration with Turing and JuliaBUGS via AbstractMCMC
 
-**Project difficulty**: Easy to Medium
+**Mentors**: [Xianda Sun](https://github.com/sunxd3)
 
-**Description**:  Sparse variational Gaussian process models provide the flexibility to scale to large datasets, handle arbitrary (non-conjugate) likelihoods, and to be used as building blocks for composite models such as deep GPs. This project is about making such models more readily available within the Julia GP ecosystem - depending on your interests you can focus on making it easier for end users and providing good tutorials, or on the implementations of these models to give us the same or better performance as with established Python packages such as GPflow, integrating with Flux.jl, etc.
+**Project difficulty**: Medium to Hard
+
+**Project length**: 350 hrs
+
+[Pigeons.jl](https://github.com/Julia-Tempering/Pigeons.jl) implements parallel tempering and related algorithms that are particularly effective for multimodal and high-dimensional posteriors.
+This project has two related goals that together make Pigeons a first-class citizen of the TuringLang ecosystem.
+
+The first part is documentation and examples.
+Turing.jl models can already be used as targets for Pigeons, but the combination is under-documented.
+The contributor will produce reproducible tutorials that walk through common use cases -- multimodal posteriors, hierarchical models, models with difficult geometry -- and compare Pigeons against HMC/NUTS on the same problems.
+These will be published on the Turing website and any integration rough edges found along the way will be fixed.
+
+The second part is implementing the efficient Gibbs sampler from [arXiv:2410.03630](https://arxiv.org/abs/2410.03630) in [JuliaBUGS.jl](https://github.com/TuringLang/JuliaBUGS.jl).
+The paper shows that by exploiting the structure of the compute graph (rather than the graphical model), the time per sweep of a full-scan Gibbs sampler on GLMs can be reduced from $O(d^2)$ to $O(d)$ in the number of parameters $d$ -- making high-dimensional GLMs feasible where traditional Gibbs is not, and outperforming HMC on effective samples per unit time in many regimes.
+JuliaBUGS already exposes the graph structure this approach relies on.
+The implementation must be correct and performant, validated against standard benchmarks with comparisons to both traditional Gibbs and HMC.
+
+## Contributor-proposed Project
+
+**Mentors**: Community
+
+If you have an idea not listed here, propose it. Submit a short proposal with motivation, a concise plan, expected deliverables, and a timeline. Maintainers and mentors will review and help turn it into a plan. Be prepared to discuss scope with mentors early.
+
+To discuss proposals and next steps, contact [Shravan Goswami](https://julialang.slack.com/team/U04UZB5U740) on the [Julia Slack](/slack/).

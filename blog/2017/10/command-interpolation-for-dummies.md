@@ -1,8 +1,8 @@
 @def rss_pubdate = Date(2017, 10, 5)
-@def rss = """ Command interpolation for dummies | I've never been a big user of the command line. One could even say I actively avoided it!... """
+@def rss_description = """ Command interpolation for dummies | I've never been a big user of the command line. One could even say I actively avoided it!... """
 @def published = "5 October 2017"
 @def title = "Command interpolation for dummies"
-@def authors = " 😄"  
+@def authors = " 😄"
 @def hascode = true
 
 
@@ -77,13 +77,13 @@ What made me fail to see the correct solution was, that Julia can actually do be
 since we can directly pass an array of strings to the command.
 So this actually works:
 
-```Julia
+```julia
 run(Cmd(["julia", "-e", "println(\"hello world\")"]))
 ```
 
 Note that the above is equivalent to:
 
-```Julia
+```julia
 run(`julia $(["-e", """println("hello world")"""])`)
 ```
 So we can in fact have better interpolation, since we just need to insert a new string into the array.

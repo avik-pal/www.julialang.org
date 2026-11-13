@@ -1,8 +1,8 @@
 @def rss_pubdate = Date(2017, 12, 6)
-@def rss = """ On Machine Learning and Programming Languages | > Any sufficiently complicated machine learning system contains an ad-hoc, informally-specified, bug-ridden, slow implementation of half of a programming language.^greenspun ... """
+@def rss_description = """ On Machine Learning and Programming Languages | > Any sufficiently complicated machine learning system contains an ad-hoc, informally-specified, bug-ridden, slow implementation of half of a programming language.^greenspun ... """
 @def published = "6 December 2017"
 @def title = "On Machine Learning and Programming Languages"
-@def authors = "By Mike Innes (Julia Computing), David Barber (UCL), Tim Besard (UGent), James Bradbury (Salesforce Research), Valentin Churavy (MIT), Simon Danisch (MIT), Alan Edelman (MIT), Stefan Karpinski (Julia Computing), Jon Malmaud (MIT), Jarrett Revels (MIT), Viral Shah (Julia Computing), Pontus Stenetorp (UCL) and Deniz Yuret (Koç University)"  
+@def authors = "By Mike Innes (JuliaHub), David Barber (UCL), Tim Besard (UGent), James Bradbury (Salesforce Research), Valentin Churavy (MIT), Simon Danisch (MIT), Alan Edelman (MIT), Stefan Karpinski (JuliaHub), Jon Malmaud (MIT), Jarrett Revels (MIT), Viral Shah (JuliaHub), Pontus Stenetorp (UCL) and Deniz Yuret (Koç University)"
 @def hascode = true
 
 
@@ -43,7 +43,7 @@ The core reason for building new languages is simple: ML research has extremely 
 There’s a snag, though. These impressive optimisations rely on simplifying assumptions (ML models won’t be recursive, or need custom gradients, right?), which make it easier to apply optimisations or deploy to small devices. Unfortunately for engineers, model complexity has increased and researchers thoroughly enjoy violating these assumptions. Models now demand conditional branching (ok, easy enough to hack in), loops for recurrence (less easy but possible), and even [recursion over trees](https://arxiv.org/pdf/1503.00075.pdf) (virtually impossible to deal with). In many areas of ML, including [neural networks](https://blog.keras.io/the-future-of-deep-learning.html) and [probabilistic programming](https://eng.uber.com/pyro/), models are becoming increasingly like programs, including ones that reason about *other* programs (e.g. [program generators](https://arxiv.org/pdf/1705.03633.pdf) and [interpreters](https://arxiv.org/abs/1605.06640)), and with non-differentiable components like Monte Carlo Tree Search. It's enormously challenging to build runtimes that provide complete flexibility while achieving top performance, but increasingly the most powerful models and groundbreaking results need both.
 
 ~~~
-<img src="/assets/images/sentiment-treebank.png"/>
+<img src="/assets/images/sentiment-treebank.png" alt="Stanford Sentiment Treebank visualization"/>
 <div class="desc">
   Using ML with complex tree-structured data, like the <a href="https://nlp.stanford.edu/sentiment/treebank.html">Stanford Sentiment Treebank</a>, requires differentiable, recursive algorithms.
 </div>
@@ -69,7 +69,7 @@ An obvious current challenge for ML languages is achieving generality alongside 
 
 As well as the PL community, ML engineers should pay close attention to the traditional Automatic Differentiation (AD) community. ML languages can take inspiration from pioneering work on [languages designed for truly first-class derivative](https://arxiv.org/pdf/1611.03416.pdf) support. Such languages can easily mix symbolic with runtime techniques (helping with the tradeoffs mentioned above), mix forward and reverse mode AD (for improved performance and memory usage), and [differentiate GPU kernels](https://mikeinnes.github.io/2017/08/24/cudanative.html) – all with no loss in performance.
 
-ML research will increasingly need more powerful type systems, user-defined types and more means for extension. Gone are the days when it was enough to hard-code support for strided arrays on NVIDIA GPUs; cutting-edge techniques like [sparse machine learning](https://people.eecs.berkeley.edu/~elghaoui/Pubs/cidu2011_final.pdf), new hardware like [TPUs](https://cloud.google.com/tpu/), [Nervana](https://www.intelnervana.com/) and [FPGAs](https://www.forbes.com/sites/moorinsights/2017/08/28/microsoft-fpga-wins-versus-google-tpus-for-ai/#118733643904), and diverse deployment targets like [ARM chips](https://www.wired.co.uk/article/google-raspberry-pi-ai) or the [iPhone’s CoreML](https://developer.apple.com/documentation/coreml) chip all call for greater levels of flexibility. [Large-scale refactoring of core C++ code](https://github.com/tensorflow/tensorflow/pull/5267/files) for each new development will not scale.
+ML research will increasingly need more powerful type systems, user-defined types and more means for extension. Gone are the days when it was enough to hard-code support for strided arrays on NVIDIA GPUs; cutting-edge techniques like [sparse machine learning](https://people.eecs.berkeley.edu/~elghaoui/Pubs/cidu2011_final.pdf), new hardware like [TPUs](https://cloud.google.com/tpu/), [Nervana](https://www.intelnervana.com/) and [FPGAs](https://www.forbes.com/sites/moorinsights/2017/08/28/microsoft-fpga-wins-versus-google-tpus-for-ai/#118733643904), and diverse deployment targets like [ARM chips](https://www.wired.com/story/google-raspberry-pi-ai/) or the [iPhone’s CoreML](https://developer.apple.com/documentation/coreml) chip all call for greater levels of flexibility. [Large-scale refactoring of core C++ code](https://github.com/tensorflow/tensorflow/pull/5267/files) for each new development will not scale.
 
 Consider a world where adding new hardware support – or new kinds of data representations – could easily be accomplished by a user in high-level code, without changes to the original system. Here we expect ML systems to take inspiration from existing numerical computing languages, which can [already handle these tasks](https://arxiv.org/pdf/1604.03410.pdf) with ease.
 
@@ -80,7 +80,7 @@ ML engineers are increasingly interested in traditional [software engineering pr
 ~~~
 <div style="text-align:center">
 <a href="https://xkcd.com/1838/">
-<img height="350px" src="https://imgs.xkcd.com/comics/machine_learning_2x.png"/>
+<img style="height: 350px" src="https://imgs.xkcd.com/comics/machine_learning_2x.png" alt="XKCD comic: Machine Learning"/>
 </a>
 </div>
 <div class="desc">

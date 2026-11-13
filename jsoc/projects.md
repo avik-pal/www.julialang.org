@@ -1,36 +1,58 @@
+@def description = "Julia Google Summer of Code project ideas organized by domain: scientific computing, machine learning, HPC, quantum, tooling and more."
+@def title = "GSoC Projects"
+
 # Projects
 
 This page lists a bunch of project ideas, meant to serve as starting points as you develop your own plan. You're free to modify them to your tastes, or propose something totally different in an area you're interested in.
 
-We have our project ideas organized below roughly by domain but you can also see a [single page with all our projects together](/jsoc/allprojects):
+We have our project ideas organized below by domain. You can also see a [single page with all our projects together](/jsoc/allprojects/).
 
-@@tight-list
-* [Compiler](/jsoc/gsoc/compiler/) – work on the Julia compiler's internals to make things better for everyone.
-* [DeepChem.jl](/jsoc/gsoc/deepchem/) – Machine learning for atomic systems in Julia
-* [DFTK.jl](/jsoc/gsoc/dftk/) – Density-functional theory in Julia
-* [Documentation tooling](/jsoc/gsoc/documenter/) - Tooling related to documentation generation, docstrings etc.
-* [Flux.jl](/jsoc/gsoc/flux/) - A flexible deep learning library.
-* [GeoStats.jl](/jsoc/gsoc/GeoStats/) - An extensible framework for high-performance geostatistics in Julia.
+## Scientific Computing & Simulation
+
+* [CliMA](/jsoc/gsoc/clima/) – a new open-source climate model that runs on GPUs.
+* [Ferrite FEM](/jsoc/gsoc/ferrite-fem/) – a modern finite element toolbox in Julia.
+* [FreeBird.jl](/jsoc/gsoc/freebird/) – enhanced sampling toolbox for materials discovery.
+* [Molecular simulation](/jsoc/gsoc/molly/) – molecular simulation with Molly.jl.
+* [Topology optimisation](/jsoc/gsoc/topopt/) – improving topology optimisation tools in Julia.
+* [Trixi.jl](/jsoc/gsoc/trixi/) – modern computational fluid dynamics with Trixi.jl in Julia.
+
+## Machine Learning & AI
+
+* [JuliaGenAI](/jsoc/gsoc/juliagenai/) – research and applications of Generative AI in Julia.
+* [Graph neural networks](/jsoc/gsoc/gnn/) – deep learning on graphs with GraphNeuralNetworks.jl.
+* [Machine learning](/jsoc/gsoc/machine-learning/) – work on problems in machine learning in the broader Julia ML ecosystem.
+* [Turing](/jsoc/gsoc/turing/) – probabilistic modelling and probabilistic programming.
+* [Herb](/jsoc/gsoc/herb/) – let programs write themselves with program synthesis.
+
+## Quantum Computing & Physics
+
+* [Gabs](/jsoc/gsoc/gabs/) – a Gaussian quantum information simulator.
+* [QuantumClifford](/jsoc/gsoc/quantumclifford/) – quantum circuits with Clifford gates.
+* [QuantumOptics](/jsoc/gsoc/quantumoptics/) – quantum dynamics and master equations.
+* [Rimu.jl](/jsoc/gsoc/rimu/) – quantum Monte Carlo for physics and chemistry.
+
+## Dynamical Systems & Analysis
+
+* [JuliaDynamics](/jsoc/gsoc/juliadynamics/) – dynamical systems, complex systems and nonlinear dynamics in Julia.
+* [JuliaReach](/jsoc/gsoc/juliareach/) – reachability analysis for dynamical systems.
+* [Satisfiability.jl](/jsoc/gsoc/satisfiability/) – an idiomatic, native Julia interface for SMT.
+
+## Infrastructure & Tooling
+
 * [High Performance and Parallel Computing](/jsoc/gsoc/hpc/) – write code that runs on lots of machines, goes really fast, processes lots of data, or all three.
-* [Images](/jsoc/gsoc/images/) – extend Julia's suite of tools for visualization and analysis of images.
-* [Javis](/jsoc/gsoc/javis/) - **J**ulia **a**nimations and **vis**ualizations for teaching, communication, and beyond!
-* [JuliaDynamics](/jsoc/gsoc/juliadynamics/) - Dynamical systems, complex systems and nonlinear dynamics in Julia
-* [MLJ.jl](/jsoc/gsoc/MLJ/) – a Machine Learning Toolbox for Julia.
-* [Numerics](/jsoc/gsoc/numerics/) – Challenges for the hard–core number-cruncher, including linear algebra routines and basic mathematical functions.
-* [Pluto](/jsoc/gsoc/pluto/) - Pluto notebooks and tools for teaching
-* [Pythia](/jsoc/gsoc/pythia/) - scalable time series for Julia.
-* [Signal processing](/jsoc/gsoc/kalmanbucy/) - Continuous time Signal Processing
-* [Symbolic computation](/jsoc/gsoc/symbolics/) - User friendly symbolic programming
-* [Tabular Data](/jsoc/gsoc/tables/) - Working with data
-* [Turing](/jsoc/gsoc/turing/) - for probabilistic modelling and probabilistic programming
-* [VS Code](/jsoc/gsoc/vscode/) - Improving Julia's VS Code IDE experience
-@@
+* [Tooling](/jsoc/gsoc/tooling/) – development of developer tools and development environments for Julia.
+* [Documentation tooling](/jsoc/gsoc/documenter/) – tooling related to documentation generation, docstrings etc.
 
-We also have Julia project's available under other organizations. If you are applying for those projects, make sure your application is for that organization and NOT the Julia Language:
-@@tight-list
-* [Gridap - NumFocus](https://github.com/numfocus/gsoc#gridap)
-* [JuMP - NumFocus](https://github.com/numfocus/gsoc#jump)
-* [SciML - NumFocus](https://github.com/numfocus/gsoc#sciml)
-  - [SciML](/jsoc/gsoc/sciml/) - Scientific Machine Learning
-  - [Differential Equations](/jsoc/gsoc/diffeq/) - Numerical methods for high-performance solving of differential equation models.
-@@
+## Domain-Specific
+
+* [Geospatial tooling](/jsoc/gsoc/juliageo/) – geospatial data tooling (for analysis and visualization) in the [JuliaGeo](https://github.com/JuliaGeo) organization.
+* [JuliaHealth](/jsoc/gsoc/juliahealth/) – using Julia to improve medicine, health care, public health, and biomedical research.
+
+## Projects Under Other Organizations
+
+We also have Julia projects available under other organizations. If you are applying for those projects, make sure your application is for that organization and NOT the Julia Language:
+
+* [SciML - NumFOCUS [Numerical Solvers (Differential Equations, Optimization, etc.), Symbolic Computing, Modeling Languages, Scientific Machine Learning]](https://github.com/numfocus/gsoc#sciml)
+* [FluxML - NumFOCUS [Deep Learning]](https://github.com/numfocus/gsoc#fluxml)
+* [Gridap - NumFOCUS [Finite Element Discretizations of Partial Differential Equations]](https://github.com/numfocus/gsoc#gridap)
+* [ArviZ - NumFOCUS [Bayesian Modeling and Visualization]](https://github.com/numfocus/gsoc#arviz)

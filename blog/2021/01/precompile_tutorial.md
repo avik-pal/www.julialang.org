@@ -2,7 +2,7 @@
 @def authors = "Tim Holy"
 @def published = "5 January 2021"
 @def rss_pubdate = Date(2021, 1, 5)
-@def rss = """Tutorial on precompilation"""
+@def rss_description = """Tutorial on precompilation"""
 
 One of the main foci of development during Julia 1.6 has been to reduce *latency*, the delay between starting your session and getting useful work done.  This is sometimes called "time to first plot," although it applies to far more than just plotting.
 While a lot of work (and success) has gone into reducing latency in Julia 1.6, users and developers will naturally want to shrink it even more.  This is the inaugural post in a short series devoted to the topic of what package developers can do to reduce latency for their users.  This particular installment covers background material--some key underlying concepts and structures--that will hopefully be useful in later installments.
@@ -613,7 +613,7 @@ Tuple{typeof(BackedgeDemo.double), AbstractFloat}
 @@
 
 @@note
-**Box 5** One other topic we've not yet discussed is that when `precompile` fails, it does so "almost" silently:
+**Box 5** One other topic we've not yet discussed is that when `precompile` fails, historically (prior to Julia 1.7) it did so "almost" silently:
 
 ```julia
 julia> methods(double)
@@ -625,8 +625,7 @@ false
 ```
 
 Even though `double` can't be compiled for `String`, the corresponding `precompile` doesn't error, it only returns `false`.
-If you want to monitor the utility of your `precompile` directives, sometimes it's useful to preface them with `@assert`; all's well if precompilation succeeds, but if changes to the package mean that the precompile directive has "gone bad," then you get an error.
-Hopefully, such errors would be caught before shipping the package to users!
+Julia 1.7 will warn about inactive precompile directives.
 @@
 
 ## Summary
@@ -664,8 +663,8 @@ precompile(dopush, ())
 
 then the `MethodInstance` for `push!(::Vector{SCDType}, ::SCDType)` will be added to the package through the backedge to `dopush` (which you do own).
 
-This was an artifical example, but in more typical cases this happens organically through the functionality of your package.
-But again, this works only for inferrable calls.
+This was an artificial example, but in more typical cases this happens organically through the functionality of your package.
+But again, this works only for inferable calls.
 @@
 
 [package mode]: https://julialang.github.io/Pkg.jl/v1/getting-started/#Basic-Usage
@@ -673,6 +672,6 @@ But again, this works only for inferrable calls.
 [serialized]: https://en.wikipedia.org/wiki/Serialization
 [module-loading]: https://docs.julialang.org/en/v1/manual/modules/#Module-initialization-and-precompilation
 [`@nospecialize`]: https://docs.julialang.org/en/v1/base/base/#Base.@nospecialize
-[invalidation]: https://julialang.org/blog/2020/08/invalidations/
-[`which`]: https://docs.julialang.org/en/v1/base/base/#Base.which-Tuple{Any,Any}
+[invalidation]: /blog/2020/08/invalidations/
+[`which`]: https://docs.julialang.org/en/v1/base/base/#Base.which-Tuple%7BAny,Any%7D
 [backedges]: https://www.quora.com/What-is-a-back-edge?share=1

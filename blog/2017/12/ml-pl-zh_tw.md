@@ -1,9 +1,10 @@
 @def rss_pubdate = Date(2017, 12, 25)
-@def rss = """ 機器學習以及程式語言(Traditional Chinese) | > 任何足夠複雜的機器學習系統都包含一個特別設置、不符規範、充滿 bug 又緩慢實作的程式語言半成品。^greenspun ... """
+@def rss_description = """ 機器學習以及程式語言(Traditional Chinese) | > 任何足夠複雜的機器學習系統都包含一個特別設置、不符規範、充滿 bug 又緩慢實作的程式語言半成品。^greenspun ... """
 @def published = "25 December 2017"
 @def title = "機器學習以及程式語言(Traditional Chinese)"
-@def authors = "By Mike Innes (Julia Computing), David Barber (UCL), Tim Besard (UGent), James Bradbury (Salesforce Research), Valentin Churavy (MIT), Simon Danisch (MIT), Alan Edelman (MIT), Stefan Karpinski (Julia Computing), Jon Malmaud (MIT), Jarrett Revels (MIT), Viral Shah (Julia Computing), Pontus Stenetorp (UCL) and Deniz Yuret (Koç University)"  
+@def authors = "By Mike Innes (JuliaHub), David Barber (UCL), Tim Besard (UGent), James Bradbury (Salesforce Research), Valentin Churavy (MIT), Simon Danisch (MIT), Alan Edelman (MIT), Stefan Karpinski (JuliaHub), Jon Malmaud (MIT), Jarrett Revels (MIT), Viral Shah (JuliaHub), Pontus Stenetorp (UCL) and Deniz Yuret (Koç University)"
 @def hascode = true
+@def pagelang = "zh-Hant"
 
 > 任何足夠複雜的機器學習系統都包含一個特別設置、不符規範、充滿 bug 又緩慢實作的程式語言半成品。[^greenspun]
 
@@ -48,7 +49,7 @@ TensorFlow 以及其他相似的工具表示他們只是套件而已，但是他
 
 ~~~
 
-<img src="/assets/images/sentiment-treebank.png"/>
+<img src="/assets/images/sentiment-treebank.png" alt="Stanford Sentiment Treebank visualization"/>
 <div class="desc">
 使用 ML 在複雜的樹狀結構資料上（像是 <a href="https://nlp.stanford.edu/sentiment/treebank.html">Stanford Sentiment Treebank</a>）需要可微分的遞迴演算法。
 </div>
@@ -74,7 +75,7 @@ MXNet 的 [Gluon](https://mxnet.incubator.apache.org/api/python/gluon.html) 就�
 
 同樣的在 PL 社群裡， ML 工程師應該要花更多時間注意傳統的自動微分（AD）社群。 ML 語言可以從頂尖的程式語言設計上得到[支援微分為真的第一公民（first-class）](https://arxiv.org/pdf/1611.03416.pdf)的靈感。這樣的語言可以簡單地混合符號和 runtime 技術（這可以幫忙以上提到的取捨）、混合前向及反向模式的 AD （以增進效能及記憶體使用），以及[區別不同的 GPU kernels](https://mikeinnes.github.io/2017/08/24/cudanative.html) ― 以上都沒有任何效能流失。
 
-ML 研究將會不斷地需要更多強大的型別系統，使用者定義型別及更多延伸意義。滿足於 NVIDIA GPUs 上寫死的 strided array 的日子已經過去了；尖端技術相關的[稀疏機器學習](https://people.eecs.berkeley.edu/~elghaoui/Pubs/cidu2011_final.pdf)，新硬體像是 [TPU](https://cloud.google.com/tpu/)、[Nervana](https://www.intelnervana.com/) 和 [FPGA](https://www.forbes.com/sites/moorinsights/2017/08/28/microsoft-fpga-wins-versus-google-tpus-for-ai/#53b33c373904)，以及多樣的部署目標像是 [ARM 晶片](https://www.wired.co.uk/article/google-raspberry-pi-ai)或是 [iPhone 的 CoreML 晶片](https://developer.apple.com/documentation/coreml)都渴望更高層級的彈性。為每個新的開發項目[大規模重構 C++ 的核心程式碼](https://github.com/tensorflow/tensorflow/pull/5267/files)是不會有幫助的。
+ML 研究將會不斷地需要更多強大的型別系統，使用者定義型別及更多延伸意義。滿足於 NVIDIA GPUs 上寫死的 strided array 的日子已經過去了；尖端技術相關的[稀疏機器學習](https://people.eecs.berkeley.edu/~elghaoui/Pubs/cidu2011_final.pdf)，新硬體像是 [TPU](https://cloud.google.com/tpu/)、[Nervana](https://www.intelnervana.com/) 和 [FPGA](https://www.forbes.com/sites/moorinsights/2017/08/28/microsoft-fpga-wins-versus-google-tpus-for-ai/#53b33c373904)，以及多樣的部署目標像是 [ARM 晶片](https://www.wired.com/story/google-raspberry-pi-ai/)或是 [iPhone 的 CoreML 晶片](https://developer.apple.com/documentation/coreml)都渴望更高層級的彈性。為每個新的開發項目[大規模重構 C++ 的核心程式碼](https://github.com/tensorflow/tensorflow/pull/5267/files)是不會有幫助的。
 
 想像一個世界，在一個加入新硬體資源(或是新的資料表示法)可以簡單地被使用者透過高階語言達成，不需要改變原本的系統。這邊我們期望 ML 系統可以從現存已經可以輕鬆[處理這些問題](https://arxiv.org/pdf/1604.03410.pdf)的數值計算語言借鏡。
 
@@ -87,7 +88,7 @@ ML 工程師對傳統[軟體工程的問題](https://papers.nips.cc/paper/5656-h
 ~~~
 <div style="text-align:center">
 <a href="https://xkcd.com/1838/">
-<img height="350px" src="https://imgs.xkcd.com/comics/machine_learning_2x.png"/>
+<img style="height: 350px" src="https://imgs.xkcd.com/comics/machine_learning_2x.png" alt="XKCD comic: Machine Learning"/>
 </a>
 </div>
 <div class="desc">

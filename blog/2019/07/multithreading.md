@@ -1,8 +1,8 @@
 @def rss_pubdate = Date(2019, 7, 23)
-@def rss = """ Announcing composable multi-threaded parallelism in Julia | Software performance depends more and more on exploiting multiple processor cores.... """
+@def rss_description = """ Announcing composable multi-threaded parallelism in Julia | Software performance depends more and more on exploiting multiple processor cores.... """
 @def published = "23 July 2019"
 @def title = "Announcing composable multi-threaded parallelism in Julia"
-@def authors = "Jeff Bezanson (Julia Computing), Jameson Nash (Julia Computing), Kiran Pamnany (Intel)"  
+@def authors = "Jeff Bezanson (JuliaHub), Jameson Nash (JuliaHub), Kiran Pamnany (Intel)"
 @def hascode = true
 @def mintoclevel = 2
 
@@ -302,6 +302,8 @@ standard definitions.
 
 ### Thread-local state
 
+\warn{}{As of Julia 1.8 this pattern is no longer recommended. Please read this [follow up blogpost](/blog/2023/07/PSA-dont-use-threadid) for more details and how to migrate away from this pattern.}
+
 Julia code naturally tends to be purely functional (no side effects or mutation),
 or to use only local mutation, so migrating to full thread-safety will hopefully
 be easy in many cases.
@@ -335,8 +337,8 @@ and resize it as needed:
 
 ```julia
     temp = temps[Threads.threadid()]
-    length(temp) < m-lo+1 && resize!(temp, m-lo+1)
-    copyto!(temp, 1, v, lo, m-lo+1)
+    length(temp) < mid-lo+1 && resize!(temp, mid-lo+1)
+    copyto!(temp, 1, v, lo, mid-lo+1)
 ```
 
 After these minor modifications, let's check performance on our large

@@ -1,8 +1,8 @@
 @def rss_pubdate = Date(2015, 5, 30)
-@def rss = """ JuliaCon 2015 Preview - Deep Learning, 3D Printing, Parallel Computing, and so much more | The first ever JuliaCon (https://juliacon.org/2014/) was held in Chicago last year and was a great success. JuliaCon is back for 2015, this time in Cambridge, Massachusetts at MIT (https://web.mit.edu/)'s architecturally-delightful Stata Center, the home of computer science at MIT (https://www.csail... """
+@def rss_description = """ JuliaCon 2015 Preview - Deep Learning, 3D Printing, Parallel Computing, and so much more | The first ever JuliaCon (https://juliacon.org/2014/) was held in Chicago last year and was a great success. JuliaCon is back for 2015, this time in Cambridge, Massachusetts at MIT (https://web.mit.edu/)'s architecturally-delightful Stata Center, the home of computer science at MIT (https://www.csail... """
 @def published = "30 May 2015"
 @def title = "JuliaCon 2015 Preview - Deep Learning, 3D Printing, Parallel Computing, and so much more"
-@def authors = "The JuliaCon Committee"  
+@def authors = "The JuliaCon Committee"
 
 
 *[JuliaCon 2015](https://juliacon.org) is being held at the Massachusetts Institute of Technology from June 24th to the 28th. [Get your tickets](https://www.eventbrite.com/e/juliacon-2015-tickets-16517619645) and [book your hotel](https://juliacon.org/#accom) before June 4th to take advantage of early bird pricing.*
@@ -14,15 +14,15 @@ The [first ever JuliaCon](https://juliacon.org/2014/) was held in Chicago last y
 * On Thursday 25th and Friday 26th we will be having speakers talking about a range of topics - we were fortunate to have so many fantastic submissions that we had to open up a second track of talks. The near-final [schedule is on the main page](https://juliacon.org). We'll be alternating between ~40 minute long "regular" talks, and ~10 minute long "lightning" talks across all the sessions.
 * On Saturday 27th we will finish with a series of **workshops** on a range of topics: data wrangling and visualization, [optimization](http://www.juliaopt.org/), high-performance computing and more. These workshops run from 1.5 to 3 hours and will be a great way to rapidly boost your Julia skills.
 
-### Thursday's Talks
+## Thursday's Talks
 
 ~~~
-<img src="https://avatars3.githubusercontent.com/u/6486271" width="20%"><img src="/assets/images/juliaastro.svg" width="20%"><img src="/assets/images/juliacloud.svg" width="20%">
+<img src="https://avatars3.githubusercontent.com/u/6486271" style="width: 20%" alt="BioJulia logo"><img src="/assets/images/juliaastro.svg" style="width: 20%" alt="JuliaAstro logo"><img src="/assets/images/juliacloud.svg" style="width: 20%" alt="JuliaCloud logo">
 ~~~
 
 After getting everyone settled in, we'll start the conference proper with a session about the use of Julia in a wide variety of **scientific applications**. Many of the talks at the conference focus on Julia package organizations: groupings of similar packages that promote interoperability and focussing of efforts. In the session [Daniel C. Jones (@dcjones)](https://github.com/dcjones), the creator of the visualization package [Gadfly](https://gadflyjl.org), will discuss the advances being made in the [BioJulia](https://github.com/BioJulia) **bioinformatics** organization, and [Kyle Barbary (@kbarbary)](https://github.com/kbarbary) will present [JuliaAstro](https://juliaastro.github.io/), a home for **astronomy and astrophysics** packages. Theres something for everyone: quantitative **economic modeling** ([QuantEcon.jl](https://quantecon.org/)), **quantum statistical simulations**, and how to fit Julia into a pre-existing body of code in other languages.
 
-After lunch we'll be splitting into two tracks: **visualization and interactivity** and **statistics**. The **visualization** track will be demonstrating some of the exciting advances being made that enable Julia to both produce high-quality visualizations, but also share them. [Mike Innes (@one-more-minute)](https://github.com/one-more-minute), creator of the **[Juno](https://junolab.org/) IDE for Julia**, will be sharing his working on building **web-powered apps** in Julia, while [Viral B. Shah (@ViralBShah)](https://github.com/ViralBShah), one of the Julia founders, will be discussing more about the inner workings of and plans for **[JuliaBox](https://juliabox.org)**. For a different take on "visualization", [Jack Minardi of Voxel8](https://github.com/jminardi) will be sharing how Julia is powering their **3D printing work**.
+After lunch we'll be splitting into two tracks: **visualization and interactivity** and **statistics**. The **visualization** track will be demonstrating some of the exciting advances being made that enable Julia to both produce high-quality visualizations, but also share them. [Mike Innes (@MikeInnes)](https://github.com/MikeInnes), creator of the **[Juno](https://junolab.org/) IDE for Julia**, will be sharing his working on building **web-powered apps** in Julia, while [Viral B. Shah (@ViralBShah)](https://github.com/ViralBShah), one of the Julia founders, will be discussing more about the inner workings of and plans for **[JuliaBox](https://juliabox.org)**. For a different take on "visualization", [Jack Minardi of Voxel8](https://github.com/jminardi) will be sharing how Julia is powering their **3D printing work**.
 
 The **statistics** session covers some hot topics in the field, including two talks from researchers at MIT about how Julia is playing a big part: **probabilistic programming** ([Sigma.jl](https://github.com/zenna/Sigma.jl)) and **deep learning** ([Mocha.jl](https://github.com/pluskid/Mocha.jl)). Facebooker John Myles White, author of ["Machine Learning for Hackers"](https://shop.oreilly.com/product/0636920018483.do) and a variety of packages in R and Julia, will share his thoughts on how statistics in Julia can be taken to the next stage in development, and [Pontus Stenetop (@ninjin)](https://github.com/ninjin) will educate and entertain in his talk "Suitably Naming a Child with Multiple Nationalities using Julia".
 
@@ -30,10 +30,10 @@ We'll come together at the end of Thursday to learn more about how to write [goo
 
 Whatever you get up to after the talks end on Thursday, make sure you are up in time for...
 
-### Friday's talks
+## Friday's talks
 
 ~~~
-<img src="/assets/images/juliaopt.svg" width="20%"><img src="/assets/images/el.png" width="20%">
+<img src="/assets/images/juliaopt.svg" style="width: 20%" alt="JuliaOpt logo"><img src="/assets/images/el.png" style="width: 20%" alt="Engineering logo">
 ~~~
 
 \\\\
@@ -50,4 +50,4 @@ The parallel computing session will tackle parallelism at all levels. Contributo
 
 After all that you will surely be inspired to hack on Julia projects all night, but make sure to wake up for a full day of **workshops** on Saturday!
 
-Remember to [get your tickets](https://www.eventbrite.com/e/juliacon-2015-tickets-16517619645) and [book your hotel](https://juliacon.org/#accom) before June 4th to take advantage of early bird pricing. We'd also like to thank our **platinum sponsors**: the Gordon and Betty Moore Foundation, BlackRock, and Julia Computing. We can't forget out **silver sponsors** either: Intel and Invenia. We're looking forward to seeing you there!
+Remember to [get your tickets](https://www.eventbrite.com/e/juliacon-2015-tickets-16517619645) and [book your hotel](https://juliacon.org/#accom) before June 4th to take advantage of early bird pricing. We'd also like to thank our **platinum sponsors**: the Gordon and Betty Moore Foundation, BlackRock, and JuliaHub. We can't forget out **silver sponsors** either: Intel and Invenia. We're looking forward to seeing you there!

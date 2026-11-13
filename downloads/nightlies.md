@@ -1,3 +1,4 @@
+@def description = "Nightly Julia builds: bleeding-edge developer preview binaries for Windows, macOS, Linux and FreeBSD, not intended for normal use."
 
 @def title = "Julia Downloads (nightly binaries)"
 
@@ -10,31 +11,102 @@ The nightly builds are for developer previews and not intended for
 normal use. You can expect many packages not to work with this version.
 Most users are advised to use the latest official release version of Julia.
 
+Nightlies are updated asynchronously for each platform after each platforms testing passes.
+The time the installers were updated can be seen by hovering over the links.
+
+Nightly builds are also available through the `nightly` channel on `juliaup`.
+
 ~~~
 <table class="downloads table table-hover table-bordered">
   <tbody>
   <tr>
-      <th> Windows </th>
-      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/winnt/x64/julia-latest-win64.exe">64-bit (installer)</a>, <a href="https://julialangnightlies-s3.julialang.org/bin/winnt/x64/julia-latest-win64.zip">64-bit (portable) </td>
-      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/winnt/x86/julia-latest-win32.exe">32-bit (installer)</a>, <a href="https://julialangnightlies-s3.julialang.org/bin/winnt/x86/julia-latest-win32.zip">32-bit (portable) </td>
+      <th> Platform</th>
+      <th> 64-bit</th>
+      <th> 32-bit</th>
   </tr>
   <tr>
-      <th> macOS </th>
-      <td colspan="2"> <a href="https://julialangnightlies-s3.julialang.org/bin/mac/x64/julia-latest-mac64.dmg">64-bit</a> </td>
+      <td> Windows </td>
+      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/winnt/x64/julia-latest-win64.exe">installer</a>, <a href="https://julialangnightlies-s3.julialang.org/bin/winnt/x64/julia-latest-win64.zip">portable</a> </td>
+      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/winnt/x86/julia-latest-win32.exe">installer</a>, <a href="https://julialangnightlies-s3.julialang.org/bin/winnt/x86/julia-latest-win32.zip">portable</a> </td>
   </tr>
   <tr>
-      <th> Generic Linux on x86 </th>
-      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/linux/x64/julia-latest-linux64.tar.gz">64-bit</a> </td>
-      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/linux/x86/julia-latest-linux32.tar.gz">32-bit</a> </td>
+      <td> macOS</td>
+      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/macos/x86_64/julia-latest-macos-x86_64.dmg">Intel</a>, <a href="https://julialangnightlies-s3.julialang.org/bin/macos/aarch64/julia-latest-macos-aarch64.dmg">Apple Silicon</a> </td>
+      <td> </td>
   </tr>
   <tr>
-      <th> Generic Linux on ARM </th>
-      <td colspan="2"> <a href="https://julialangnightlies-s3.julialang.org/bin/linux/aarch64/julia-latest-linuxaarch64.tar.gz">64-bit (AArch64)</a> </td>
+      <td> Generic Linux on x86 </td>
+      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/linux/x86_64/julia-latest-linux-x86_64.tar.gz">.tar.gz</a> </td>
+      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/linux/i686/julia-latest-linux-i686.tar.gz">.tar.gz</a> </td>
   </tr>
   <tr>
-      <th> Source </th>
-      <td colspan="2"> <a href="https://github.com/JuliaLang/julia">GitHub</a> </td>
+      <td> Generic Linux on ARM </td>
+      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/linux/aarch64/julia-latest-linux-aarch64.tar.gz">.tar.gz</a> </td>
+      <td> </td>
+  </tr>
+  <tr>
+      <td> Generic Linux on RISC-V </td>
+      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/linux/riscv64/julia-latest-linux-riscv64.tar.gz">.tar.gz</a> </td>
+      <td> </td>
+  </tr>
+  <tr>
+      <td> Generic FreeBSD on x86 </td>
+      <td> <a href="https://julialangnightlies-s3.julialang.org/bin/freebsd/x86_64/julia-latest-freebsd-x86_64.tar.gz">.tar.gz</a> </td>
+      <td> </td>
   </tr>
   </tbody>
 </table>
+<table>
+  <tbody>
+  <tr>
+      <th> Source </th>
+      <td> <a href="https://github.com/JuliaLang/julia">GitHub</a> </td>
+  </tr>
+  </tbody>
+</table>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Get the table with class "downloads"
+  var downloadsTable = document.querySelector(".downloads");
+
+  // Check if the table is found
+  if (downloadsTable) {
+    // Get all the links in the table
+    var links = downloadsTable.querySelectorAll("a");
+
+    // Iterate through each link
+    links.forEach(function (link) {
+      // Get the href attribute of the link
+      var href = link.getAttribute("href");
+
+      if (href.startsWith("https://julialangnightlies-s3.julialang.org/")) {
+        var fetched = false;
+
+        // Fetch the last-modified header only when the link is first hovered or focused
+        function fetchLastModified() {
+          if (fetched) return;
+          fetched = true;
+          fetch(href, { method: "HEAD" })
+            .then(function (response) {
+              // Check if the last-modified header is present
+              if (response.headers.has("last-modified")) {
+                // Set the hint text to the last-modified value
+                var lastModified = response.headers.get("last-modified");
+                link.setAttribute("title", "Last Modified: " + lastModified);
+              }
+            })
+            .catch(function (error) {
+              console.error("Error fetching last-modified header for " + href + " :", error);
+            });
+        }
+
+        link.addEventListener("mouseenter", fetchLastModified);
+        link.addEventListener("focus", fetchLastModified);
+      }
+    });
+  }
+});
+</script>
+
 ~~~

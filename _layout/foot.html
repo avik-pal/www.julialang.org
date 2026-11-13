@@ -8,7 +8,17 @@
         {{ insert foot_highlight.html }}
     {{ end }}
 
-    {{insert foot_general.html}}
+    {{insert foot_clipboard.html}}
 
+    {{insert foot_general.html}}
+    {{ispage /blog/*}}{{isnotpage /blog/index.html}}
+    <script src="/libs/blog-sections.js"></script>
+    {{end}}{{end}}
+    {{if hasmap}}
+    <script src="/libs/groups.js"></script>
+    <script src="/libs/map.js"></script>
+    <script src="/libs/classes_locations.js"></script>
+    <script src="/libs/classes_map.js"></script>
+    {{end}}
   </body>
 </html>

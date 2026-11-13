@@ -2,9 +2,8 @@
 author = "Keno Fischer"
 published = "24 September 2020"
 title = "Using time travel to remotely debug faulty DRAM"
-author_img = "authors/keno.png"
-author_blurb = "Co-Founder & CTO of JuliaComputing"
-rss = """The story of debugging a mysterious Julia segfault."""
+author_blurb = "Co-Founder & CTO of JuliaHub"
+rss_description = """The story of debugging a mysterious Julia segfault."""
 meta = [
     ("property", "og:image", "https://julialang.org/assets/blog/2020-09-23-rr-memory/faulty-mem.jpg"),
     ("name", "twitter:creator:id", "4922348584"),
@@ -24,9 +23,9 @@ A [few months ago](/blog/2020/05/rr) on this blog, I introduced a new Julia feat
 have made use of this capability to send us detailed bug reports. So far, everything went according to plan.
 
 ~~~
-<center>
-<img id="meme" src="/assets/blog/2020-09-23-rr-memory/rr-meme.jpeg"/>
-</center><br/>
+<div style="text-align: center">
+<img id="meme" src="/assets/blog/2020-09-23-rr-memory/rr-meme.jpeg" alt="Meme about rr debugging"/>
+</div><br/>
 ~~~
 
 In this post I want to tell the story of issue [#37524](https://github.com/JuliaLang/julia/issues/37524), the most unusual of the several `rr` traces we received. As spoiled in the title of this blog post, the eventual issue turned
@@ -67,24 +66,24 @@ unknown function (ip: 0x7f0483dd8205)
 but instead, we get an internal `rr` error:
 
 ```plaintext
-[FATAL /home/keno/rr/src/ReplaySession.cc:636:check_pending_sig()]                                                     
- (task 17107 (rec:7760) at time 51911)                                                                                 
+[FATAL /home/keno/rr/src/ReplaySession.cc:636:check_pending_sig()]
+ (task 17107 (rec:7760) at time 51911)
  -> Assertion `false' failed to hold. Replaying `SIGNAL: SIGSEGV(det)': expecting tracee signal or trap, but instead at
- `write' (ticks: 144040993972)                                                                                         
-Tail of trace dump:                                                                                                    
-[snip]                                                                                                                 
-  { syscall:'clock_gettime', ret:0x0, size:0x20 }                                                                      
-}                                                                                                                      
-{                                                                                                                      
-  real_time:38257.585221 global_time:51911, event:`SIGNAL: SIGSEGV(det)' tid:7760, ticks:143998759917                  
+ `write' (ticks: 144040993972)
+Tail of trace dump:
+[snip]
+  { syscall:'clock_gettime', ret:0x0, size:0x20 }
+}
+{
+  real_time:38257.585221 global_time:51911, event:`SIGNAL: SIGSEGV(det)' tid:7760, ticks:143998759917
 rax:0x436487c0 rbx:0x7f0490b74330 rcx:0xb479 rdx:0x435f2dc8 rsi:0x435f2dc0 rdi:0x435f2dc0 rbp:0x7fff6ca71250 rsp:0x7fff
 6ca71230 r8:0x1 r9:0x7f0490b74330 r10:0x1007f0490b784d0 r11:0x4364d190 r12:0x0 r13:0x7f0490b88c70 r14:0x7f047daf36d0 r1
 5:0xb479 rip:0x7f049e2ba8e3 eflags:0x10287 cs:0x33 ss:0x2b ds:0x0 es:0x0 fs:0x0 gs:0x0 orig_rax:0xffffffffffffffff fs_b
-ase:0x7f0499f49240 gs_base:0x0                                                                                         
-}                                                                                                                      
-{                                                                                                                      
-  real_time:38257.585223 global_time:51912, event:`SYSCALLBUF_RESET' tid:7760, ticks:143998759917                      
-}           
+ase:0x7f0499f49240 gs_base:0x0
+}
+{
+  real_time:38257.585223 global_time:51912, event:`SYSCALLBUF_RESET' tid:7760, ticks:143998759917
+}
 ```
 
 This is the point where Tim asked me to take over, since that really isn't supposed to happen.
@@ -141,12 +140,12 @@ rax:0x1 rbx:0x681fffa0 rcx:0xffffffffffffffff rdx:0x1 rsi:0x7f047ba39840 rdi:0xd
 {
   real_time:38257.585211 global_time:51910, event:`SYSCALLBUF_FLUSH' tid:7760, ticks:143998759917
 }
-{                                                                                                                      
-  real_time:38257.585221 global_time:51911, event:`SIGNAL: SIGSEGV(det)' tid:7760, ticks:143998759917                  
+{
+  real_time:38257.585221 global_time:51911, event:`SIGNAL: SIGSEGV(det)' tid:7760, ticks:143998759917
 rax:0x436487c0 rbx:0x7f0490b74330 rcx:0xb479 rdx:0x435f2dc8 rsi:0x435f2dc0 rdi:0x435f2dc0 rbp:0x7fff6ca71250 rsp:0x7fff
 6ca71230 r8:0x1 r9:0x7f0490b74330 r10:0x1007f0490b784d0 r11:0x4364d190 r12:0x0 r13:0x7f0490b88c70 r14:0x7f047daf36d0 r1
 5:0xb479 rip:0x7f049e2ba8e3 eflags:0x10287 cs:0x33 ss:0x2b ds:0x0 es:0x0 fs:0x0 gs:0x0 orig_rax:0xffffffffffffffff fs_b
-ase:0x7f0499f49240 gs_base:0x0                                                                                         
+ase:0x7f0499f49240 gs_base:0x0
 }
 ```
 
@@ -491,7 +490,7 @@ encouraged the user to run memtest on their machine. And indeed, the next day I 
 screenshot:
 
 ~~~
-<img id="meme" src="/assets/blog/2020-09-23-rr-memory/faulty-mem.jpg"/>
+<img id="meme-2" src="/assets/blog/2020-09-23-rr-memory/faulty-mem.jpg" alt="Memtest86 screenshot showing faulty memory"/>
 ~~~
 
 The failures reported are exactly what we expected: A 0->1 bit flip in the low bit of the high

@@ -1,0 +1,17 @@
+{
+  "name": "julialang-visual-tests",
+  "private": true,
+  "scripts": {
+    "test": "npx playwright test",
+    "test:update": "npx playwright test --update-snapshots",
+    "test:report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "serve": "^14.2.6"
+  },
+  "packageManager": "pnpm@12.17.0",
+  "pnpm": {
+    "minimumReleaseAge": 10080
+  }
+}

@@ -1,8 +1,8 @@
 @def rss_pubdate = Date(2019, 1, 18)
-@def rss = """ DiffEqFlux.jl – A Julia Library for Neural Differential Equations... """
+@def rss_description = """ DiffEqFlux.jl – A Julia Library for Neural Differential Equations... """
 @def published = "18 January 2019"
 @def title = "DiffEqFlux.jl – A Julia Library for Neural Differential Equations"
-@def authors = """Chris Rackauckas, Mike Innes, Yingbo Ma, Jesse Bettencourt, Lyndon White, Vaibhav Dixit"""  
+@def authors = """Chris Rackauckas, Mike Innes, Yingbo Ma, Jesse Bettencourt, Lyndon White, Vaibhav Dixit"""
 
 Translations: [Traditional Chinese](/blog/2019/04/fluxdiffeq-zh_tw)
 
@@ -49,9 +49,9 @@ this is a large generalization of the neural ODEs work and will allow
 researchers to better explore the problem domain.
 
 (Note: If you are interested in this work and are an undergraduate or graduate
-student, we have [Google Summer of Code projects available in this area](/soc/ideas-page). This
+student, we have [Google Summer of Code projects available in this area](/jsoc/projects/). This
 [pays quite well over the summer](https://developers.google.com/open-source/gsoc/help/student-stipends).
-Please join the [Julia Slack](http://julialang.org/slack/) and the #jsoc channel to discuss in more detail.)
+Please join the [Julia Slack](/slack/) and the #jsoc channel to discuss in more detail.)
 
 \toc
 
@@ -364,6 +364,9 @@ classic LSODE). Let's use DifferentialEquations.jl to call CVODE with its Adams
 method and have it solve the ODE for us:
 
 ```julia
+using ParameterizedFunctions # required for the `@ode_def` macro
+using Sundials
+
 rober = @ode_def Rober begin
   dy₁ = -k₁*y₁+k₃*y₂*y₃
   dy₂ =  k₁*y₁-k₂*y₂^2-k₃*y₂*y₃
@@ -432,7 +435,7 @@ prob = DDEProblem(delay_lotka_volterra,[1.0,1.0],h,(0.0,10.0),constant_lags=[0.1
 p = [2.2, 1.0, 2.0, 0.4]
 params = Flux.params(p)
 
-using DiffEqSensitivity
+using SciMLSensitivity
 function predict_rd_dde()
   solve(prob,MethodOfSteps(Tsit5()),p=p,sensealg=TrackerAdjoint(),saveat=0.1)[1,:]
 end
@@ -614,6 +617,10 @@ Notice that we are not learning a solution to the ODE.
 Instead, what we are learning is the tiny ODE system from which the ODE
 solution is generated. I.e., the neural network inside the neural_ode
 layer learns this function:
+
+```text
+u' = A*u^3
+```
 
 Thus **it learned a compact representation of how the
 time series works**, and it can easily extrapolate to what would happen with

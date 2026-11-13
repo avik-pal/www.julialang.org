@@ -2,14 +2,14 @@
 @def authors = "Tim Holy and Nathan Daly"
 @def published = "28 January 2021"
 @def rss_pubdate = Date(2021, 1, 28)
-@def rss = """Profiling type-inference"""
+@def rss_description = """Profiling type-inference"""
 
 This is the second in a short series on what package developers can do to reduce the latency of Julia packages.
-In the [first post](https://julialang.org/blog/2021/01/precompile_tutorial/), we introduced precompilation and some of its constraints.
+In the [first post](/blog/2021/01/precompile_tutorial/), we introduced precompilation and some of its constraints.
 We also pointed out that precompilation is closely tied to *type inference*:
 
 - precompilation allows you to cache the results of type inference, thus saving time when you start using methods defined in the package
-- caching becomes more effective when a higher proportion of calls are made with inferrable argument types (i.e., type-inference "succeeds"). Successful inference introduces links, in the form of `MethodInstance` backedges, that permit the entire call graph to be cached.
+- caching becomes more effective when a higher proportion of calls are made with inferable argument types (i.e., type-inference "succeeds"). Successful inference introduces links, in the form of `MethodInstance` backedges, that permit the entire call graph to be cached.
 
 As a consequence, anyone interested in precompilation needs to pay attention to type inference: how much time does it account for, where is it spending its time, and what can be done to improve caching?
 Julia itself provides the internal infrastructure needed to "spy" on inference, and the user-space utilities are in the [SnoopCompile] package.
@@ -60,7 +60,7 @@ InferenceTimingNode: 0.009382/0.010515 on InferenceFrameInfo for Core.Compiler.T
 @@
 
 This may not look like much, but there's a wealth of information hidden inside `tinf`.
-While optional, before proceeding further it's recommended to check `tinf` for hints that [invalidation](https://julialang.org/blog/2020/08/invalidations/) may have influenced the result:
+While optional, before proceeding further it's recommended to check `tinf` for hints that [invalidation](/blog/2020/08/invalidations/) may have influenced the result:
 
 ```
 julia> staleinstances(tinf)
@@ -175,7 +175,7 @@ This occurs when the method is owned by one module but the argument types are fr
 We'll see how to deal with these in later installments.
 
 You also see breaks in the flamegraph. During these periods, code generation and runtime create new objects and then call methods on those objects; if one of those calls requires a fresh entrance into inference, that triggers the creation of a new flame.
-Hence, the number of distinct flames (which is just equal to `length(tinf.children)`) gives you a rough indication of how frequently the chains of inference were broken. This can be caused by type instability, separate top-level calls from the REPL during `@snoopi_deep`, calls to `eval` in your code, or some other cause for julia to start running type inference.
+Hence, the number of distinct flames (which is just equal to `length(tinf.children)`) gives you a rough indication of how frequently the chains of inference were broken. This can be caused by type instability, separate top-level calls from the REPL during `@snoopi_deep`, calls to `eval` in your code, or some other cause for Julia to start running type inference.
 
 ### PProf.jl
 ```

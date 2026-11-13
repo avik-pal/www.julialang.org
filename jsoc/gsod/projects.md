@@ -1,188 +1,271 @@
+@def description = "Google Season of Docs project ideas for documentation work on Julia and its packages, with mentors and how to get in touch."
+@def title = "Google Season of Docs Projects"
+
 # Julia's Google Season of Docs Projects
 
-Below are the projects which have been proposed for Google Season of Docs under the umbrella of the Julia Language. If you have questions about potential projects, the first point of contact would be the mentor(s) listed on the project. If you are unable to get ahold of the potential mentor(s), you should email `jsoc@julialang.org` and CC `logan@julialang.org`. 
+Below are the projects which have been proposed for Google Season of Docs under the umbrella of the Julia Language. If you have questions about potential projects, the first point of contact would be the mentor(s) listed on the project. If you are unable to get ahold of the potential mentor(s), you should email `jsoc@julialang.org` and CC `community@julialang.org`.
 
-We at the Julia Language are committed to making the application process and participation in GSoD with Julia accessible to everyone. If you have questions or requests, please do reach out and we will do our best to accommodate you. 
+We at the Julia Language are committed to making the application process and participation in GSoD with Julia accessible to everyone. If you have questions or requests, please do reach out and we will do our best to accommodate you.
 
-### The Julia Language has [submitted a proposal for GSoD 2021](/jsoc/gsod/proposal/) and been accepted.
+## The GSoD experience with The Julia Language
 
-In 2021, we will be moving forward with a single GSoD project: [GSoD 2021 Proposal](/jsoc/gsod/proposal/). Stay tuned for more details on applying.
+Learn from one of our technical writers about their experience with GSoD:
+~~~
+<div style="max-width:720px;margin:0 auto;">
+  <div class="ratio ratio-16x9 video-container">
+    <iframe src="https://www.youtube-nocookie.com/embed/6s9J-ObQaAs" title="YouTube video player" style="border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+~~~
 
-# Project Ideas for 2022
+# Project Ideas for 2024
 
-Below you can find a running list of potential GSoD projects. If any of these are of interest to you, please reachout to the respective mentor(s).
+Below you can find a running list of potential GSoD projects. If any of these are of interest to you, please reach out to the respective mentor(s).
 
-### Scientific Machine Learning (SciML) and Differential Equations
+# Unifying the JuliaHealth Organization Documentation Landscape
 
-[DifferentialEquations.jl](https://github.com/SciML/DifferentialEquations.jl) is a widely used Julia library for solving ordinary, stochastic, delay, and many more types of differential equations. Below are the proposed projects in this area. Technical writers may wish to do a combination of these projects. The mentors for the JuliaDiffEq projects are [Chris Rackauckas](https://github.com/ChrisRackauckas), [Kanav Gupta](https://github.com/kanav99), and [Sam Isaacson](https://github.com/isaacsas).
+## About your organization
 
-Here are some possible projects:
+<!-- In this section, tell us about your organization or project in a few short paragraphs. What problem does your project solve? Who are your users and contributors? How long has your organization or project been in existence? Give some context to help us understand why funding your proposal would create a positive impact in open source and the world. -->
 
-- ### Unified Organization Documentation
+The Julia Programming Language is an MIT-licensed high-performance programming language designed for speed, usability, and reproducibility within both scientific and general purpose computing.
+Currently the Julia community has over 7,000 registered Julia packages, 35 million+ downloads of Julia, and thousands of contributors worldwide.
+Julia's popularity continues to grow thanks to the dedicated community of users and developers who have helped develop several smaller specialty ecosystems within Julia.
 
-[SciML](https://sciml.ai/) is the scientific machine learning organization. However, its documentation is spread amongst many different fairly large packages:
+In particular, the [JuliaHealth Organization](https://github.com/JuliaHealth/) is one such ecosystem that was originally organized and founded 2020.
+It is an organization dedicated to improving healthcare by developing open-source tools to work with a variety of health data and promotes interoperable data standards within the broader health research community.
+The community is made up of health researchers, data scientists, software developers, and healthcare professionals who are passionate about using Julia to investigate and improve patient outcomes and promote data-driven decision-making.
 
-- [DifferentialEquations.jl](https://docs.sciml.ai/latest/)
-- [DiffEqFlux.jl](https://diffeqflux.sciml.ai/dev/)
-- [ModelingToolkit.jl](https://mtk.sciml.ai/dev/)
-- [Surrogates.jl](https://surrogates.sciml.ai/latest/)
+Over the past four years, our organization membership has grown to more than 60 members actively working on the dozens of JuliaHealth packages we house.
+As the entire JuliaHealth user community comprises more than 250 registered users across the Julia Slack and Julia Zulip instances, niche subecosystems have organically arisen under the JuliaHealth umbrella.
+Currently, there are various subecosystems such as the Medical Imaging and the Observational Health subecosystem with more subecosystems beginning to emerge.
 
-Just to name a few. One project would be to create a unified scientific machine learning documentation that would make it easy to move between all of these different package docs and understand the cohesive organization.
+## Your project’s problem
 
-- ### Tutorial Writing
+<!-- Tell us about the problem your project will help solve. Why is it important to your organization or project to solve this problem? -->
 
-  The JuliaDiffEq organization hosts the [DiffEqTutorials.jl](https://github.com/SciML/DiffEqTutorials.jl) repository which auto-builds websites and pdfs from tutorials. Tutorials generally center on features of DifferentialEquations.jl or on application domains. Technical writers who have expertise in areas like biological modeling may wish to contribute tutorials that showcase how to use DifferentialEquations.jl to solve problems arising in their discipline.
+With JuliaHealth's terrific growth over the years -- both in terms of growth in users, members, and actively maintained packages -- we are beginning to see the need for more unified documentation.
+Without this unified documentation, we are seeing:
 
-#### Potential Impact
+- User confusion due to the lack of documentation around subecosystems (including both emerging and established subecosystems)
 
-  Many university classes use the SciML ecosystem for its teaching, and thus classrooms all over the world will be improved. Tutorials that capture more domains will allow professors teaching biological modeling courses to not have to manually rewrite physics-based tutorials to match their curriculum, and conversion of READMEs to documentation will help such professors link to reference portions for these tools in their lecture notes.
-  
-  Additionally, these benchmarks are a widely referenced cross-language benchmark of differential equations, which gives a standard between Python, R, Julia, MATLAB, and many C++ and Fortran packages. Improving the technical writing around the benchmarks can make this set of documents more widely accessible, and enlarging the scope of topics will help individuals of all programming languages better assess the methods they should be choosing for their problems.
+- Developing fragmentation of documentation across packages
 
-### Julia (Main Documentation)
+- Lack of clarity in how users and developers can compose packages together across JuliaHealth and the broader Julia ecosystem to accomplish research tasks
 
-[The Julia docs](https://docs.julialang.org/en/v1/) provide a robust set of examples and context for the available functionality in the Julia Programming Language. The mentors for this project are [Logan Kilpatrick](https://github.com/logankilpatrick) and [Avik Sengupta](https://github.com/aviks) with support from [other Julia Language members](https://github.com/orgs/JuliaLang/people). 
+In some ways, this is a very good place to be in in that we have grown to the point of having these issues.
+Users and developers want to engage with the JuliaHealth community, but if we do not provide a more unified documentation approach, we could potentially lose members or new contributors and stagnate our growth.
 
-#### Audit the existing documentation
+### Project Impact
+- By providing clearer guidance and improving accessibility, we seek to make navigating the different aspects of the JuliaHealth organization seamless and intuitive.
+- We envision through participation in GSoD that by developing enhanced and unified documentation, we can assist all community levels within the JuliaHealth ecosystem.
+- Additionally, as we construct solutions within JuliaHealth to address the needs we have encountered as a growing organization, we will share our insights to the broader Julia community to illustrate various methods other ecosystems within Julia can adapt to meet growing demand.
 
-  While the [Julia documentation](https://docs.julialang.org/en/v1/) is robust, it has been written and worked on by hundreds of contributors over many years. This has led to potential instances where the docs do not represent a singular voice and may not be as clear as they can be. 
-  
-  __This project would/could include the following:__
-  - Identifying pain points in the docs and conducting an audit on those sections (the docs are robust and long, so auditing all of the docs may be enough work for a stand-alone project). 
-  - Rewording/rewriting the sections in questions (perhaps with more examples) to ensure clarity. 
-  - Optionally, updating the [FAQ section of the docs](https://docs.julialang.org/en/v1/manual/faq/) to reflect more popular questions from the Julia Discourse and Stack Overflow. 
-  - If time allows, adding additional docs tests (which are just examples of the use of a function, see [here](https://github.com/JuliaLang/julia/pull/35647)) to ensure it is clear what each function does, just by reading the docs. 
-  
-  __Potential impact and the Why?:__
-  - This project represents a unique opportunity to work on a core aspect of the Julia Language. Given the high visibility level of the Julia docs, making sure they are done well and truly help developers is very important. Since we are an open-source and community-driven project, it is very difficult to keep a singular voice and extensively vet every doc change. This project presents the chance to ensure Julia devs will have clear and useful documentation for years to come. 
-  
-  - Success for this project could be quantified by keeping track of the number of issues raised on the parts of the docs that were audited and updated. 
+## Your project’s scope
 
+<!-- Tell us about what documentation your organization will create, update, or improve. If some work is deliberately not being done, include that information as well. Include a time estimate, and whether you have already identified organization volunteers and a technical writer to work with your project. -->
 
-#### Updating contributing guide (main project we will be applying for)
+Although there are many subecosystems within JuliaHealth, our project will be scoped to specifically the Medical Imaging subecosystem as it has grown mature enough to encounter many of these problems already.
+Working on documentation around the Medical Imagining subecosystem will benefit the rest of the JuliaHealth ecosystem as it will provide a roadmap for how other subecosystems can best document themselves and support their users.
 
-  The [Julia contributing guide](https://github.com/JuliaLang/julia/blob/master/CONTRIBUTING.md) provides details on how one who is either a new Julia contributor or returning contributor, can make a change to the Julia docs or the core Julia codebase. 
-  
-   __This project would/could include the following:__
-   - Auditing the existing contributing guide to ensure it covers developer use-cases correctly. 
-   - Moving the guide to a more robust and user-friendly section of the [Julia Website](https://julialang.org) (potentially making a "contributing" folder and then having details on different use-cases rather than just one long doc). 
-   - Optionally, making a contributing guide template so that all of the 5,000+ Julia Packages also have guidelines for contributors. 
-   - If time allows, making a step by step "first-time contributor" guide which highlights common first-time contributions, where to find potential things to contribute/change, and how to contribute those. 
-   
-   __Potential impact and the Why?:__
-   - Ensuring that the Julia Language provides an open, inclusive, and friendly community for the first time and returning contributors is a high priority. Historically, Julia has been used in mostly scientific domains, thus the docs and other materials are written with that audience in mind. As the community continues to grow, it is evident that we need to be approaching documents, like the contributing guide, differently so we can warmly welcome the next generation of Julia developers. 
-   
-   - Success for this project could be quantified by keeping track of whether or not the number of first-time contributors goes up and if they can open a Pull Request that follows the suggestions in the contributing guide successfully. 
+To better position the Medical Imaging subecosystem within the JuliaHealth organization, we will first have to do some general documentation improvements to the main JuliaHealth website.
+This includes:
+- Upgrade website to latest Julia documentation deployment tool
+     - DocumenterVitepress.jl may be one target
+- Add additional organization details for JuliaHealth overall including:
+     - A new landing page for the subecosystems
+          - Medical Imaging
+          - Observational Health
+          - Standards and Interoperability
+     - Package breakdown using our pre-existing package listing tool
+- Add FAQ or support page
+- Define and implement tracking metrics to monitor user engagement and interaction with the platform
+     - Using an open source and GDPR compliant technology like GoatCounter
 
-  
+Once this initial groundwork is done, we will then address some of the specific core tooling within the Medical Imaging subecosystem.
+Due to the modular nature of packages within this subecosystem, we will need to improve documentation across various packages to show what they should be used for, how they integrate with one another, and how to onboard as a potential new contributor:
 
-### Flux (Machine Learning)
+- Documentation tasks for [MedImage]( https://github.com/JuliaHealth/MedImage.jl)
+     - Introduction to the theory of medical imaging formats and spatial metadata
+     - Describe how to load and save image
+     - Describe how apply basic transformation using MedImage
+- Documentation tasks for [MedEye3d](https://github.com/JuliaHealth/MedEye3d.jl)
+     - Write tutorial how to configure window size and amount of space allocated to text
+     - Give detailed tutorial describing the possible configurations using TextureSpec objects
+     - Add the section with all keyboard shortcuts and print screens showing their effects
+     - Describe possible user interactions including:
+         - Using tool with REPL for fast debugging, include how to modify and refresh image manually
+         - Describe manual interaction of modifiable masks
+- Documentation tasks for [MedEval3D](https://github.com/JuliaHealth/MedEval3D.jl)
+     - Describe different metrics and what are their strength and weaknesses
+     - Make a tutorial showing how to use each metric
+- Documentation tasks for [MedPipe3D](https://github.com/JuliaHealth/MedPipe3D.jl)
+     - Describe how to use Medpipe functionalities in different use cases
+     - Give introduction to the functionalities in development like augmentations, largest component analysis or hyperparameter tuning (without usage examples)
 
-[Flux.jl](https://github.com/FluxML/Flux.jl) is an elegant approach to machine learning in Julia. It is designed to be hackable and flexible, extendable, and exposes powerful AD tools. It also provides abstractions over the popular layers and optimizers used in neural networks. It is built with differentiable programming in mind. The mentors for this project are [Dhairya Gandhi](https://github.com/DhairyaLGandhi).
+- Documentation tasks for [KomaMRI](https://github.com/JuliaHealth/KomaMRI.jl):
+     - Through coordination with the KomaMRI volunteers, [outstanding issues from KomaMRI will be addressed](https://github.com/JuliaHealth/KomaMRI.jl/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Adocumentation)
 
-- #### Tutorials
+Finally, if time permits, there will be some additional stretch goals that we would like to attempt accomplishing:
+- Page for ongoing projects across JuliaHealth
+- Page for research accomplishments within JuliaHealth
+- Write a JuliaHealth blog entry on a Medeye topic to broaden project reach
 
-  Flux is in dire need of complete tutorials in the [model-zoo](https://github.com/FluxML/model-zoo.git) as well as on the website. We can take inspiration from many existing projects that publish their tutorials, that take a look at common design patterns. This includes writing custom adjoints, new optimizers, transfer learning, and writing performance-sensitive code for many common kinds of networks that many people would be interested in writing.
-  This could also include cases that help users write custom loss functions, and even putting Flux models behind a web server.
+### Technical Writer
 
-- ### Updated Documentation and DocTests
+Name: [Sneha Pandey](https://github.com/sneha9231)
 
-  Flux documentation needs a lot of rework since our generic approach to development means there are many general use cases that we support but might be a bit subtle to discover. So in that case, we need to highlight such common cases and make them known in the documentation.
-  We would like to use doc tests to also increase our coverage of and documentation of many of the common patterns we see in differentiating Julia code.
+Sneha Pandey is a sophomore specializing in AI and ML and also serves as a Microsoft Learn Student Ambassador. Through this role, she had refined her ability to communicate complex concepts effectively to diverse audiences. Additionally, She had gained experience as a content writer, crafting content for her university. She has hands-on experience in developing various mini projects, such as a WhatsApp bot and ML captioning models using Streamlit and Python. Her familiarity with Julia stems from previous engagements in medical imaging alongside MD PhD Msc Jakub Mitura. Moreover, She ensured comprehensive documentation of her personal projects using Documenter.jl. These experiences collectively equip her with the skills and proficiency required to excel as a technical writer within the Julia ecosystem.
 
-#### Potential Impact
+### Volunteer Roles
+**Volunteer 1: General JuliaHealth Organization Volunteer:**
 
-  Flux is an innovative approach to machine learning. This also means that not all the same patterns and assumptions truly hold when translating from a different framework. It also needs a way to communicate a compelling description of how to implement many of the user-facing niceties that one might need in the course of completing an ML project. Through this, we want to also find areas of improvement where we could offer a better user experience.
+Name: Jacob S. Zelko
 
-  This would also greatly benefit the adoption of Flux in the larger ML ecosystem, which we feel is currently held back due to not having enough of these simple patterns documented in an approachable form. We want to see an increase in the number of contributors to the various packages too since that would help us improve our stack better. Flux also utilizes simple to understand and performant code, made possible by Julia, and through this, we also want to bring awareness to how our ecosystem has matured, and increase its adoption in research and industry.
+Duties:
 
-### VS Code extension
+1. Providing support for general JuliaHealth documentation tasks.
+2. Assisting in reviewing documentation pull requests (PRs) periodically.
+3. Deploying documentation within the Julia ecosystem as needed.
+4. Handling miscellaneous tasks as they arise.
+5. Serving as a general support role while integrating Technical Writer's work into the broader JuliaHealth ecosystem.
 
-The [Julia VS Code extension](https://github.com/JuliaEditorSupport/julia-vscode) currently has hardly any documentation. We are looking for someone to flesh out the docs and the [homepage](https://www.julia-vscode.org/) for the extension. The mentors for this project are [David Anthoff](https://github.com/davidanthoff) and [Zac Nugent](https://github.com/ZacLN).
+**Volunteer 2: JuliaDocs and Documentation Deployment Volunteer:**
 
-__This project would/could include the following:__
- - Performing an audit of what existing aspects of the Julia VS Code extension are documented. 
- - Documenting the remaining features of the extension (this does not require too much technical background but applicants should be familiar with the functionality of an Integrated Development Environment - "IDE")
- - The documentation for the Atom IDE is particularly well done so we hope to be able to take inspiration from that to improve the docs for the Julia VS Code extension. You can find the Atom docs [here](https://flight-manual.atom.io). 
- - If time allows, there is also a desire for the creation of a "Getting started in Julia using VS Code" guide which will help more quickly onboard folks into the Julia Community from other languages who may already use VS Code. 
- 
-__Potential impact and the Why?:__
- - IDE's are commonplace among developers. Currently, the Julia Community heavily favors the use of Atom. We hope that by properly documenting how to use the Julia VS Code Extension we will not only help diversify the use of IDE's in the community but also improve our ability to onboard new folks into our community who may not be comfortable starting a new language plus a new IDE. 
+Name: Anshul Singhvi
 
- - The impact of this project can be quantified by assessing potential increases in the usage of the extension and by soliciting feedback from the community on the docs after they have been updated. 
+Duties:
 
-### Turing (Probabilistic Machine Learning)
+1. Transition support the main JuliaHealth page to the designated technology platform.
+2. Provide guidance on safely implementing tracking metrics to monitor user engagement and interaction with the platform.
+3. Offer technical consultation and guidance as needed throughout the project duration.
+4. Help fix issues or rememdy needs that may arise from using tools from within the JuliaDocs ecosystem
 
-[Turing.jl](https://turing.ml/dev/) is a probabilistic programming language written in Julia. The team is looking for help with several projects. Mentors for this project would be [Cameron Pfiffer](https://github.com/cpfiffer/), [Martin Trapp](https://github.com/trappmartin/), [Kai Xu](https://github.com/xukai92), or [Hong Ge](https://github.com/yebai/).
+**Volunteer 3: Medical Imaging Subecosystem Volunteer:**
 
-Here are some ideas:
+Name: Guillermo Sahonero Alvarez
 
-- A structured explanation of the different inference algorithms provided in Turing with details on when to use each algorithm and what are the implications of each approach. Turing has many sampling algorithms but their value is not fully recognized by inexperienced users -- heuristics on when to use which algorithms would greatly benefit the user experience. Documentation might run speed tests, or measure convergence criteria for different sampler types. One such [blog post](https://dm13450.github.io/2019/04/10/Turing-Sampling-Speed.html) focused mostly on speed, but there are features of different models and data that make some samplers preferable to others.
+Duties:
 
-- An introduction to probabilistic modelling and the Bayesian approach in Turing with a discussion of general Bayesian issues such as the choice of prior. Turing lacks a good resource for those who are just beginning with probabilistic modelling, and users tend to use [Stan's](https://mc-stan.org/docs/2_23/stan-users-guide/index.html) excellent documentation or [Probabilistic Programming & Bayesian Methods for Hackers](https://camdavidsonpilon.github.io/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/) to learn how to use probabilistic programming. Turing should be self-contained when it comes to grabbing early-phase learners.
+1. Provide guidance on medical imaging theory and spatial metadata
+2. Support in connecting imaging discussions to other aspects of the Julia ecosystem (such as MLJ or JuliaImages)
+3. Provide subject matter expertise on imaging standards
+4. Assist in writing theorethical introductions
 
-- A better tutorial that shows how to integrate [Flux.jl](https://github.com/FluxML/Flux.jl) with Turing. Turing has an [existing tutorial](https://turing.ml/dev/tutorials/3-bayesnn/) that shows how to build a Bayesian neural network with Flux.jl, but this is very much a toy example and does not demonstrate real-world applicability. A guide that shows how to apply Flux and Turing in a useful setting would be valuable for Julia, Turing, and Flux.
+**Volunteer 4: Task consultations on packages functionalities and function documentations**
 
-- Documentation and manuals for [MCMCChains](https://github.com/TuringLang/MCMCChains.jl), [AdvancedHMC](https://github.com/TuringLang/AdvancedHMC.jl), and [Bijectors](https://github.com/TuringLang/Bijectors.jl). Turing maintains several separate packages, all of which have some documentation, but each of these could be improved dramatically. Technical writers would review current documentation, meet with the development team for each package to determine the package goals, and assess whether current documentation meets those goals. AdvancedHMC, for example, requires a much more detailed guide that explores all of AdvancedHMC's functionality.
+Duties:
 
-#### Potential impact
+1. Support for technical writer related to practical development issues of Julia programming languages
+2. To help checking weather docstrings of functions are working correctly
+3. Collaborate with KormaMRI to create specialized documentation sections based on their research paper, covering advanced topics or techniques relevant to medical imaging.
 
-Turing is a rapidly developing probabilistic programming language, used by machine learning researchers, data scientists, statisticians, and economists. Improving any measure of the informational tools in Turing will allow those communities to integrate better with the Julia community, which will, in turn, improve the rest of Julia's ecosystem. Better documentation and guides will attract new learners and help to transition more experienced people from tools that do not meet their needs.
+### Work that is out of scope for this project:
+To explicitly enumerate what work is out of scope for this project, we do not plan for work done in the following spaces:
 
+- Developing thorough documentation for other subecosystems
+- Any of the aforementioned medical imagining packages not related to documentation
+     - Adding docstrings or crosslinks may fall in scope depending on the needs per task
 
-### JuliaIntervals (Interval arithmetic methods)
+## Measuring your project’s success
 
-The [JuliaIntervals organization](https://github.com/JuliaIntervals) develops a suite of packages based on [interval arithmetic](https://github.com/JuliaIntervals/IntervalArithmetic.jl) for performing numerical computations with guaranteed results.
-We are looking for help with several projects, with
-mentors [David P. Sanders](https://github.com/dpsanders) and [Luis Benet](https://github.com/lbenet).
+<!-- How will you know that your new documentation has helped solve your problem? What metrics will you use, and how will you track them? -->
 
-Here are some possible projects:
+Currently, the documentation we do have does not yet have support for documentation traffic analytics.
+As of this moment, our best direct source for traffic metrics is to use [JuliaHub](https://juliahub.com/ui/Packages?q=JuliaHealth/) to monitor package downloads and also to reference GitHub stars for a loose approximation of "discoverability".
+Additionally, we take advantage of the [The Julia Programming Language YouTube Channel](https://www.youtube.com/@TheJuliaLanguage) that we use to monitor engagement with our recorded [JuliaHealth Workgroup meetings](https://www.youtube.com/playlist?list=PLP8iPy9hna6QCTkFxfHs2Y4foaYBJAjzO).
+In these situations, potential users or contributors would have to know where to look to find these resources or entry points to our supported packages and their respective subecosystems.
+### We would consider the project successful if:
 
-- Modernize the documentation for [`IntervalArithmetic.jl`](https://github.com/JuliaIntervals/IntervalArithmetic.jl).
-The documentation has not kept pace with the development of the package; e.g. methods for constructing intervals have changed significantly since most of the documentation was written. It is also unclear who the target audience is. The documentation should be split up into tutorial material, more advanced "how-to's", reference documentation, and explanation of the underlying mathematical concepts. There should be a discussion of performance implications of the different approaches to directed rounding that includes results from a benchmark suite. There should also be a section explaining how to use different floating-point types with the package, and a section discussing composability with other packages, and possible pitfalls, as highlighted in the [`NumberIntervals.jl`](https://github.com/gwater/NumberIntervals.jl) package.
+For JuliaHealth, we would consider this project successful if:
+- We can readily track documentation traffic across packages
+     - Encompasses deploying a safe traffic detection tool
+     - Seeing at least a 10 - 15% growth in traffic after the deployment of tracking
+- An overall increase by 5 - 10% in traffic across all JuliaHealth platforms
+     - Includes JuliaHub, YouTube, GitHub, and documentation statistics
+- Most (if not all) enumerated documentation tasks are completed for the Medical Imaging subecosystem
+     - Some Related Issue Links:
+[Sub-Package Documentation 1](https://github.com/JuliaHealth/MedPipe3D.jl/issues/10)
+[Sub-Package Documentation 2](https://github.com/JuliaHealth/MedEye3d.jl/issues/10)
+[Sub-Package Documentation 3](https://github.com/JuliaHealth/MedEye3d.jl/issues/11)
+[Sub-Package Documentation 4](https://github.com/JuliaHealth/MedEye3d.jl/issues/9)
 
-- Several of the packages currently have rather minimal documentation, in particular [`IntervalOptimization.jl`](https://github.com/BryanCorzo/IntervalOptimization), [`IntervalConstraintProgramming.jl`](https://github.com/JuliaIntervals/IntervalConstraintProgramming.jl) and [`TaylorModels.jl`](https://github.com/JuliaIntervals/TaylorModels.jl). These need full tutorials and "how-to's" for solving example problems, as well as reference documentation. Preferably they should also be compared their use to other techniques for solving similar problems. Potential pitfalls should also be highlighted.
+- At least 3 - 5 new active JuliaHealth contributors across the JuliaHealth ecosystem are onboarded
+     - Tracked across GitHub contribution history
+- A new blog post is published
 
-- Design a web page for the [`JuliaIntervals`](https://github.com/JuliaIntervals) suite of packages. This web page should provide information about the various packages in the suite, as well as related packages in the Julia ecosystem, showing what they can be used for and exhibiting interesting examples. The web page should also contain a guide to orient a user towards the relevant package for their needs, for example using some kind of decision tree.
+## Timeline
 
-#### Potential impact
+<!-- How long do you estimate this work will take? Are you able to breakdown the tech writer tasks by month/week? -->
 
-[`IntervalArithmetic.jl`](https://github.com/JuliaIntervals/IntervalArithmetic.jl) is heading towards full compliance with the international standard IEEE-1788. Once compliance is reached we will release v1.0 of the package and will advertise the package to the wider interval arithmetic community.
+We assume the tech writer will put in part time hours (10-20 hours/week) during this time.
+### Monthly Plan
 
-We anticipate that there may be significant interest and adoption by new users at that time. For this reason, it will be crucial to have documentation that is up-to-date, correct, and usable, for both new users and as a reference.
+| Dates | Action items |
+| ------------- | ------------- |
+| May |  Technical writer and volunteers are hired, onboarding  |
+| June-July  | Research into Julia community, Audit existing documentation |
+| August-September | Create Standard Package Documentations, Medical imaging subecosystem documentation  |
+| October |  Improvements to the main page of JuliaHealth |
+| November | Write a blog post, Any outstanding tasks or stretch goals |
 
-Furthermore, since there are now an increasing number of packages built on top of [`IntervalArithmetic.jl`](https://github.com/JuliaIntervals/IntervalArithmetic.jl) which will also be of interest to these users, a guide to both which package is suitable for which application and how to use them correctly is required.
+### Weekly Plan
 
-### Julia GPU programming
+- **Week (1-2)** - Reading and Familiarization
 
-Julia has several GPU back-ends, like CUDA.jl and AMDGPUnative.jl, that aim to provide a flexible and high-performance GPU programming environment in a high-level, productive programming language. These back-ends are organized under the JuliaGPU organization, with a landing page at https://juliagpu.org/. There are several possible projects to improve documentation for the JuliaGPU organization, guided by mentors [Tim Besard](https://github.com/maleadt) and [Valentin Churavy](https://github.com/vchuravy).
+- **Week (3-4)** - Documentation Traffic Tracker Setup
 
-- Landing page: the current landing page hosts a short blurb on each back-end, but for users to decide which back-end they should use it would need to better reflect the tradeoffs, hardware and software compatibility, maturity, etc.
+- **Week (5-7)** - Setting up the environment and Updating Organization Details & Creating Subecosystem Sections
 
-- GPU programming tutorials: to demonstrate Julia's GPU programming capabilities, a technical writer could work on tutorials that demonstrate common parallel programming patterns in Julia, and contrast that to GPU programming in the official toolkit languages (e.g. CUDA C) and/or other parallel programming possibilities that Julia has to offer (e.g. multithreaded programming). Example of such a tutorial: https://juliagpu.gitlab.io/CUDA.jl/tutorials/introduction/
+- **Week (8-10)** -  Linking Packages across subecosystems
 
-CUDA.jl is currently the most popular back-end of the JuliaGPU ecosystem, and its documentation can be significantly improved on several aspects:
+- **Week (11- 16)** - Medical Imaging Subecosystem Packages Documentation
 
-- High-level usage examples and documentation: CUDA.jl makes it possible to program GPUs using much higher-level programming paradigms than GPU programmers are used to, e.g. using arrays and higher-order abstractions. A technical writer could work on explaining these possibilities, the necessary tools and APIs, and how it relates to lower-level kernel programming.
+- **Week (17- 20)** - Review and Finalize Website Content also Feedback Incorporation
 
-- Kernel programming documentation: CUDA.jl mimics CUDA C, but several of its APIs are slightly different than their C counterparts. The documentation should explain this, and list which CUDA features are or are not supported. A technical writer could work on this, possibly adding inline examples to demonstrate these features with actual examples.
+- **Week (20-24)** - Wrap up / touch up of overall packages docs page alongside stretch goals
 
-- API documentation: Many of CUDA's APIs are available in CUDA.jl via high-level wrappers, but that is not always obvious to users. The documentation of these wrappers should be checked for completeness, and presented in a structured manner so that users can easily consult it and do not need to consult the documentation of the underlying C APIs.
+This timeline is largely accurate but we expect that different packages or tasks may be slightly more challenging than others.
+The November time period gives us the opportunity to revisit any unfinished tasks and to potentially explore stretch goals if there were not many outstanding tasks left.
 
-#### Potential impact 
+### Communication Plan:
+The primary communication channel we will use is [Julia Slack](/slack/) and Dr. Jakub Mitura (MD, PhD) will be the individual responsible for all contact and mentoring throughout the project for regular updates and meetings.
+Outside of Slack, email will be used to handle communications with GSoD organizers and administrators with Jakub Mitura's email being: [jakub.mitura14@gmail.com](mailto:jakub.mitura14@gmail.com).
+Volunteers will also be available for communication on the Slack on an as-needed basis.
+Additionally, project updates will be given through the [Julia Health Slack Channel](https://app.slack.com/client/T68168MUP/C012NN70P5K) which is where the majority of JuliaHealth communication takes place between members, users, and the rest of the Julia community.
 
-Julia's GPU programming capabilities are widely used, but users currently are all but required to already have GPU programming experience in order to know how to navigate the Julia GPU back-ends. Improving the technical documentation for the JuliaGPU organization and the CUDA.jl back-end would make it possible to skip this step, and make it possible for users to program GPUs without previous experience, greatly democratizing the ever-increasing compute capabilities that GPUs have to offer.
+## Project Budget
 
-### Towards DeepChem.jl: Combining Machine Learning with Chemical Knowledge
+<!-- You can include your budget in your proposal or as a separate link. If your budget is fewer than ten items, we recommend including it in your proposal. -->
 
-We have been developing the AtomicGraphNets.jl package, which began modestly as a Julia port of [CGCNN](https://github.com/txie-93/cgcnn), but now has plans to expand to a variety of more advanced graph-based methods for state-of-the-art ML performance making predictions on atomic systems. In support of this package, we are also developing ChemistryFeaturization.jl, which contains functions for building and featurizing atomic graphs from a variety of standard input files. ChemistryFeaturization will eventually form the bedrock of a DeepChem.jl umbrella organization to host a Julia-based port of the popular [Deepchem](http://deepchem.io) Python package.
+| Budget item | Amount | Running total |
+| ------------- | ------------- | ------------- |
+| Technical writer | \$4000 | \$4000  |
+| Volunteer (500x4) | \$2000 | \$6000  |
+| Swags (3 shirts and 10 sticker packs) | \$125 | \$6125  |
+| TOTAL |   | \$6125 |
 
-As part of this project, you would have the opportunity to learn all about how these packages work and apply them to new test cases for the purpose of building out our lists of examples, as well as helping to make tutorials to make sure our work is as accessible to the broader community as possible!
+Additional justifications:
 
-(See also: [cross-posting on GSoc projects page](/jsoc/gsoc/deepchem/))
+- Volunteers: Please see the above section on Project Scope for details about selected volunteers
+- Swag: is to create a more welcoming environment for our writer and volunteers
+     - Sticker packs will also be given to welcome new contributors
 
-**Recommended Skills**: Basic graph theory and linear algebra, some knowledge of chemistry
+### Additional information:
 
-**Expected Results**: Contributions of new examples, documentation, and tutorials  in the eventual DeepChem.jl ecosystem
+<!-- Beyond the above proposal information, some additional notes about the composition of this project team: -->
 
-**Mentors**: [Rachel Kurchin](https://github.com/rkurchin)
+**About GSoD Project Lead:**
+
+MD PhD Msc Jakub Mitura Researcher specialising in creating artificial intelligence models for medical imaging. Holds a doctorate in medical sciences with a thesis titled ‘The Role of Positron Emission Tomography Using Fluorodeoxyglucose in the Diagnosis of Vascular Prosthesis Infections.’ Additionally, holds a master’s degree in informatics with a specialisation in Big Data. Has authored scientific publications in the fields of medicine and artificial intelligence.
+
+**Additional Volunteer Notes:**
+
+Jacob Zelko was selected as a volunteer as he has a proven track record as a successful Google Summer of Code mentor for the past 3 years and is currently the Julia Organization's co-administrator for this years Google Summer of Code where he handles questions from both students and mentors.
+Given his experience, Jacob will provide guidance to Jakub and Sneha as needed to make sure this project is well-aligned with general Google Open Source program goals.
+Additionally, Jacob has a overseen many grants in the past through Google Summer of Code and former positions at Georgia Tech Research Institute and the Centers for Disease Control and will provide a valuable asset in answering any questions about the project scope.
+
+Anshul Singhvi is a former Google Summer of Code student and has a vast swath of experience of working across the Julia ecosystem.
+In particular, Anshul has membership with numerous Julia organizations and will be a crucial asset to not only what are best practices for documentation deployment but can also help with how to best unify JuliaHealth packages within JuliaHealth itself and potentially across the greater Julia landscape.
+His insight will be crucial to mitigate any redundant work or answer outsanding questions to make sure this project is ran as effectively as possible.
+Also, given Anshul's tremendous experience in delivering contract work, he will be key in making sure the metrics we investigate and report on for the case study in our final report will be done rigorously and to the best of the technical writer's ability given the data we have access to.

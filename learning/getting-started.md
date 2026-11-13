@@ -1,3 +1,4 @@
+@def description = "What Julia is and why it was created, plus how to install Julia, get packages, come from other languages, develop packages and find help."
 
 # Getting Started with Julia
 
@@ -12,9 +13,7 @@ People used to think that you had to choose between a programming language that 
 
 ## Installing
 
-The first thing to do is [download Julia](/downloads/). Pre-built versions are available from our website. Download the version for your operating system. If you are on Linux, we would still recommend downloading the “Generic Linux Binaries” from our website. If you have more experience working with Linux or with programming generally, another option on a Linux machine is to download Julia using your system package manager, like yup, apt-get etc. A system package manager is a tool that keeps track of all your downloads and helps make sure they don’t conflict with one another.
-
-Once you download Julia, and run the installer (Windows/Mac -- on linux you just unzip the downloaded file), you will get a `julia` binary in the _bin_ directory where your install lives. Running that program will leave you in a textual prompt, which is usually called a REPL - Read-Eval-Print-Loop.
+The first thing to do is [install Julia](/install/). The recommended way to install is using the `juliaup` program, which will install the latest `julia` for you and help you keep it up to date. You can download and install individual Julia binaries, but `juliaup` is much easier. We strongly discourage using Julia binaries shipped by various distros---these are often broken and outdated. Once you install `juliaup` you will get a `julia` binary that you can run from a terminal or command prompt, which will leave you in a textual prompt, which is usually called a REPL - Read-Eval-Print-Loop.
 
 ![Julia REPL](/assets/images/julia-repl.png)
 
@@ -22,10 +21,10 @@ You can develop your Julia programs by typing directly in the REPL. Note that th
 
 Even though you can always scroll up to see code you’ve already written in a REPL, this is not a good way to review or save past work once you start writing longer programs. If you want a more graphical environment that also saves your programs, you can use Julia from within your favorite text editor: Visual Studio Code, Vim, Emacs, IntelliJ IDEA. Minimally, a text editor like Vim or Notepad will allow you to create a document where you can write programs but without automatically adding a bunch of formatting information. (Microsoft Word and Apple Pages store a lot more information about your document than just the text you’ve written, and this is bad for writing programs.)
 
-To make coding easier, there are lots of “integrated development environments” (IDEs) out there that offer more than a simple text editor. These IDEs will allow you not only to write and store programs you’ve written, but also to run them, making it easier to test and experiment as you write. If you don’t yet have a favorite editor or IDE, we would suggest using the [Atom](https://atom.io/) code editor, along with Julia plugin for Atom, called [Juno](https://junolab.org/). Use the instructions here to [install Atom and Juno] (https://docs.junolab.org/latest/man/installation/). Juno  lets you edit and run Julia code within a single environment.
+To make coding easier, there are lots of “integrated development environments” (IDEs) out there that offer more than a simple text editor. These IDEs will allow you not only to write and store programs you’ve written, but also to run them, making it easier to test and experiment as you write. If you don’t yet have a favorite editor or IDE, we would suggest using [VS code along with the Julia plugin](https://www.julia-vscode.org/).
 
 ## Getting Packages
-When you downloaded Julia using the instructions above, you got the compiler (which converts the Julia code you write into a version your computer can run), and the standard library (also sometimes called *Base*), which contains basic functionality that comes built in. This includes things like arrays and lists, numbers and strings,  some basic linear algebra and statistics etc. For most use cases, you will likely need to download and run external libraries, which are known as packages in Julia. A list of publicly available packages is [available here](https://pkg.julialang.org)
+When you downloaded Julia using the instructions above, you got the compiler (which converts the Julia code you write into a version your computer can run), and the standard library (also sometimes called *Base*), which contains basic functionality that comes built in. This includes things like arrays and lists, numbers and strings,  some basic linear algebra and statistics etc. For most use cases, you will likely need to download and run external libraries, which are known as packages in Julia. A list of publicly available packages is [available here](https://juliahub.com)
 
 Packages are downloaded using a package manager built into the Julia standard library. You can interact with the package manager in a couple of ways. The simplest is to press `]` (the right square bracket) on your keyboard when you are at the REPL, which will put the REPL into _pkg_ mode.
 
@@ -36,7 +35,7 @@ If you have experience programming in another language, you will find that most 
 
 
 ## Developing packages
-It is easy to move from using Julia packages to developing them. Most of our contributors started that way. If you are the user of a Julia package, please believe that you have the skills to contribute bug fixes and new features. Chris Rackaukas has created a video that walks you through the process of creating a new package, or contributing code to an existing package. Find it [here on our Youtube channel](https://www.youtube.com/watch?v=QVmU29rCjaA)
+It is easy to move from using Julia packages to developing them. Most of our contributors started that way. If you are the user of a Julia package, please believe that you have the skills to contribute bug fixes and new features. Chris Rackauckas has created a video that walks you through the process of creating a new package, or contributing code to an existing package. Find it [here on our Youtube channel](https://www.youtube.com/watch?v=QVmU29rCjaA)
 
 
 ## Looking for help
